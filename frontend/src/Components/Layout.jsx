@@ -14,7 +14,7 @@ const Layout = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const products = await axios.get(
-        "https://sinaih-health.vercel.app/product/getProducts",
+        "https://sinaih-health.vercel.app/api/product/getProducts",
         {}
       );
       if (products.status === 200) {
