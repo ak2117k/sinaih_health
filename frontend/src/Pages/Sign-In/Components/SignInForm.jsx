@@ -1,4 +1,4 @@
-import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
+// import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -93,7 +93,7 @@ const SignInForm = () => {
         <div>
           <label className="block text-sm font-medium">Email</label>
           <div className="relative">
-            <EnvelopeIcon className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+            {/* <EnvelopeIcon className="absolute left-3 top-3 h-5 w-5 text-gray-400" /> */}
             <input
               type="email"
               name="email"
@@ -108,7 +108,7 @@ const SignInForm = () => {
         <div>
           <label className="block text-sm font-medium">Password</label>
           <div className="relative">
-            <LockClosedIcon className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+            {/* <LockClosedIcon className="absolute left-3 top-3 h-5 w-5 text-gray-400" /> */}
             <input
               type="password"
               name="password"
