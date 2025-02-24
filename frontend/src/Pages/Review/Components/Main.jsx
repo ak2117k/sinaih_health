@@ -54,7 +54,7 @@ const Main = () => {
 
       try {
         const response = await axios.post(
-          "https://sinaih-health.vercel.app/users/createBooking",
+          "https://sinaih-health.vercel.app/api/users/createBooking",
           orderDetails,
           {
             headers: {

@@ -8,7 +8,7 @@ const Reviews = ({ singleProduct }) => {
   const handleReviewLike = async (reviewId) => {
     try {
       const response = await axios.put(
-        "https://sinaih-health.vercel.app/product/reviewLike",
+        "https://sinaih-health.vercel.app/api/product/reviewLike",
         {
           reviewId: reviewId,
           productId: singleProduct._id,
@@ -26,7 +26,7 @@ const Reviews = ({ singleProduct }) => {
   const handleReviewDislike = async (reviewId) => {
     try {
       const response = await axios.put(
-        "https://sinaih-health.vercel.app/product/reviewDislike",
+        "https://sinaih-health.vercel.app/api/product/reviewDislike",
         {
           reviewId: reviewId,
           productId: singleProduct._id,

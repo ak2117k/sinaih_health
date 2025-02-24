@@ -53,7 +53,7 @@ const SignUpForm = () => {
 
     try {
       const response = await axios.post(
-        "https://sinaih-health.vercel.app/users/sign-up",
+        "https://sinaih-health.vercel.app/api/users/sign-up",
         {
           email: formData.email,
           firstName: formData.firstName,

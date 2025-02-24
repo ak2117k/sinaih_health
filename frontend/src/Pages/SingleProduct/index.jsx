@@ -18,7 +18,7 @@ const index = () => {
     const fetchSingleProduct = async () => {
       try {
         const result = await axios.get(
-          `https://sinaih-health.vercel.app/product/${params.productName
+          `https://sinaih-health.vercel.app/api/product/${params.productName
             .split("_")
             .map((w) => w.trim())
             .join(" ")

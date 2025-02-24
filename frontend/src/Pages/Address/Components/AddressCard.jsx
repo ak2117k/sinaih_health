@@ -20,7 +20,7 @@ const AddressCard = ({ AddressData, setShowEditForm, setShowForm }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.delete(
-        `https://sinaih-health.vercel.app/users/deleteAddress?addressId=${addressId}&userId=${user?._id}`,
+        `https://sinaih-health.vercel.app/api/users/deleteAddress?addressId=${addressId}&userId=${user?._id}`,
         {},
         {
           headers: {

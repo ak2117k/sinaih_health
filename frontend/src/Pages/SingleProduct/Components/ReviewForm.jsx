@@ -17,7 +17,7 @@ const ReviewForm = ({ setShowReviewForm, productId }) => {
     console.log(rating, name, email, review);
     try {
       const result = await axios.post(
-        "https://sinaih-health.vercel.app/product/addReview",
+        "https://sinaih-health.vercel.app/api/product/addReview",
         {
           rating: rating,
           name: name,

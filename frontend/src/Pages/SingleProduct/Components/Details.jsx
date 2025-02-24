@@ -38,7 +38,7 @@ const Details = ({ singleProduct }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `https://sinaih-health.vercel.app/users/wishlist?productId=${productId}&userId=${user?._id}`,
+        `https://sinaih-health.vercel.app/api/users/wishlist?productId=${productId}&userId=${user?._id}`,
         {},
         {
           headers: {
@@ -64,7 +64,7 @@ const Details = ({ singleProduct }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `https://sinaih-health.vercel.app/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantity}`,
+        `https://sinaih-health.vercel.app/api/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantity}`,
         {},
         {
           headers: {

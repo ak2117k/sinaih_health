@@ -17,7 +17,7 @@ const Modal = ({ setShowLoginModal }) => {
     }
     try {
       const response = await axios.post(
-        "https://sinaih-health.vercel.app/users/log-in",
+        "https://sinaih-health.vercel.app/api/users/log-in",
         {
           email,
           password,

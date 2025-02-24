@@ -25,11 +25,11 @@ const Index = () => {
     const fetchProducts = async () => {
       let response;
       if (params.brand) {
-        response = `https://sinaih-health.vercel.app/product/getProducts?brand=${params.brand}`;
+        response = `https://sinaih-health.vercel.app/api/product/getProducts?brand=${params.brand}`;
       } else if (searchValue) {
-        response = `https://sinaih-health.vercel.app/product/searchproduct?search=${searchValue}`;
+        response = `https://sinaih-health.vercel.app/api/product/searchproduct?search=${searchValue}`;
       } else {
-        response = "https://sinaih-health.vercel.app/product/getProducts";
+        response = "https://sinaih-health.vercel.app/api/product/getProducts";
       }
 
       try {

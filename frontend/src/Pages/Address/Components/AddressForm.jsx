@@ -112,8 +112,8 @@ const AddressForm = ({ onCancel, AddressData }) => {
     };
 
     const url = AddressData
-      ? "https://sinaih-health.vercel.app/users/updateAddress"
-      : "https://sinaih-health.vercel.app/users/addAddress";
+      ? "https://sinaih-health.vercel.app/api/users/updateAddress"
+      : "https://sinaih-health.vercel.app/api/users/addAddress";
 
     try {
       const response = await axios[AddressData ? "put" : "post"](
