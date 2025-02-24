@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173", // Frontend URL
+    origin: true, // Frontend URL
     credentials: true,
   })
 );
@@ -20,9 +20,16 @@ app.use(cookieParser());
 const userRoutes = require("./routes/UserRoutes");
 const productRoutes = require("./routes/ProductRoute");
 
-app.use("/users", userRoutes);
+app.use("/api/users", userRoutes);
 
-app.use("/product", productRoutes);
+app.use("/api/product", productRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend", "dist")));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 3000;
 
