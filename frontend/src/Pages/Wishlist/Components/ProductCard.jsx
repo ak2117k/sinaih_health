@@ -1,7 +1,7 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addUser } from "../../../Store/User";
 import axios from "axios";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../../Store/User";
 
 const ProductCard = () => {
   const userWishlistedItems = useSelector(
@@ -15,7 +15,7 @@ const ProductCard = () => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/wishlist?productId=${productId}&userId=${user?._id}`,
+        `https://sinaih-health.vercel.app/users/wishlist?productId=${productId}&userId=${user?._id}`,
         {},
         {
           headers: {
@@ -41,7 +41,7 @@ const ProductCard = () => {
       // Then, add it to the cart
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/addToCart?productId=${productId}&userId=${
+        `https://sinaih-health.vercel.app/users/addToCart?productId=${productId}&userId=${
           user?._id
         }&qty=${1}`,
         {},

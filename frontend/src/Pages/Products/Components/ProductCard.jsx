@@ -1,11 +1,10 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import axios from "axios";
-import { addUser } from "../../../Store/User";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import Modal from "./Modal";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { addUser } from "../../../Store/User";
+import Modal from "./Modal";
 
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -33,7 +32,7 @@ const ProductCard = ({ product }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/wishlist?productId=${productId}&userId=${user?._id}`,
+        `https://sinaih-health.vercel.app/users/wishlist?productId=${productId}&userId=${user?._id}`,
         {},
         {
           headers: {
@@ -61,7 +60,7 @@ const ProductCard = ({ product }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantity}`,
+        `https://sinaih-health.vercel.app/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantity}`,
         {},
         {
           headers: {

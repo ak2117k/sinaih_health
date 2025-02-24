@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
-import ImageCard from "./Components/ImageCard";
-import Details from "./Components/Details";
-import SimilarProductCont from "./Components/SimilarProductCont";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CustomerReviews from "./Components/CustomerReviews";
+import Details from "./Components/Details";
+import ImageCard from "./Components/ImageCard";
 import Reviews from "./Components/Reviews";
+import SimilarProductCont from "./Components/SimilarProductCont";
 
 const index = () => {
   const params = useParams();
@@ -19,7 +18,7 @@ const index = () => {
     const fetchSingleProduct = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:3000/product/${params.productName
+          `https://sinaih-health.vercel.app/product/${params.productName
             .split("_")
             .map((w) => w.trim())
             .join(" ")

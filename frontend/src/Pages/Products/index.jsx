@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Top from "./Components/Top";
-import ProductCard from "./Components/ProductCard";
-import ProductsCount from "./Components/ProductsCount";
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { FaRegSadTear } from "react-icons/fa";
 import { MdSearchOff } from "react-icons/md";
+import { useLocation, useParams } from "react-router-dom";
+import ProductCard from "./Components/ProductCard";
+import ProductsCount from "./Components/ProductsCount";
+import Top from "./Components/Top";
 
 const Index = () => {
   const [products, setProducts] = useState([]);
@@ -26,11 +25,11 @@ const Index = () => {
     const fetchProducts = async () => {
       let response;
       if (params.brand) {
-        response = `http://localhost:3000/product/getProducts?brand=${params.brand}`;
+        response = `https://sinaih-health.vercel.app/product/getProducts?brand=${params.brand}`;
       } else if (searchValue) {
-        response = `http://localhost:3000/product/searchproduct?search=${searchValue}`;
+        response = `https://sinaih-health.vercel.app/product/searchproduct?search=${searchValue}`;
       } else {
-        response = "http://localhost:3000/product/getProducts";
+        response = "https://sinaih-health.vercel.app/product/getProducts";
       }
 
       try {

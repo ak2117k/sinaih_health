@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addUser } from "../../../Store/User";
 import axios from "axios";
-import PhoneInput from "react-phone-number-input";
+import React, { useEffect, useState } from "react";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { isValidPhoneNumber } from "react-phone-number-input";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../../Store/User";
 
 const AddressForm = ({ onCancel, AddressData }) => {
   const user = useSelector((state) => state.user.user);
@@ -113,8 +112,8 @@ const AddressForm = ({ onCancel, AddressData }) => {
     };
 
     const url = AddressData
-      ? "http://localhost:3000/users/updateAddress"
-      : "http://localhost:3000/users/addAddress";
+      ? "https://sinaih-health.vercel.app/users/updateAddress"
+      : "https://sinaih-health.vercel.app/users/addAddress";
 
     try {
       const response = await axios[AddressData ? "put" : "post"](

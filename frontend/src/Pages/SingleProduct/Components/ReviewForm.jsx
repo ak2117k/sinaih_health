@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
-import axios from "axios";
 
 const ReviewForm = ({ setShowReviewForm, productId }) => {
   const [rating, setRating] = useState(0);
@@ -17,7 +17,7 @@ const ReviewForm = ({ setShowReviewForm, productId }) => {
     console.log(rating, name, email, review);
     try {
       const result = await axios.post(
-        "http://localhost:3000/product/addReview",
+        "https://sinaih-health.vercel.app/product/addReview",
         {
           rating: rating,
           name: name,

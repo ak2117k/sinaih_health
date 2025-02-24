@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
-import { addUser } from "../../../Store/User";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Slider from "react-slick"; // Importing Slick Carousel
+import { addUser } from "../../../Store/User";
 
 const SimilarProductCont = ({ similarProducts }) => {
   const user = useSelector((state) => state.user.user);
@@ -34,7 +34,7 @@ const SimilarProductCont = ({ similarProducts }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/wishlist?productId=${productId}&userId=${user?._id}`,
+        `https://sinaih-health.vercel.app/users/wishlist?productId=${productId}&userId=${user?._id}`,
         {},
         {
           headers: {
@@ -60,7 +60,7 @@ const SimilarProductCont = ({ similarProducts }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantities[productId]}`,
+        `https://sinaih-health.vercel.app/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantities[productId]}`,
         {},
         {
           headers: {

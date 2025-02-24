@@ -1,6 +1,6 @@
+import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 
 const Main = () => {
   const user = useSelector((state) => state.user.user);
@@ -54,7 +54,7 @@ const Main = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:3000/users/createBooking",
+          "https://sinaih-health.vercel.app/users/createBooking",
           orderDetails,
           {
             headers: {

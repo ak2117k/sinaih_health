@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { CountryList } from "./CountryList";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CountryList } from "./CountryList";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -54,7 +53,7 @@ const SignUpForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/users/sign-up",
+        "https://sinaih-health.vercel.app/users/sign-up",
         {
           email: formData.email,
           firstName: formData.firstName,

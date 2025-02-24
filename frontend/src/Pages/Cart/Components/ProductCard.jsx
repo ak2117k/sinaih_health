@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { X } from "lucide-react";
 import axios from "axios";
-import { addUser } from "../../../Store/User";
+import { X } from "lucide-react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { addUser } from "../../../Store/User";
 
 const ProductCard = () => {
   const userCart = useSelector((state) => state.user.user.myCart);
@@ -14,7 +14,7 @@ const ProductCard = () => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.delete(
-        `http://localhost:3000/users/deleteitemfromcart?productId=${itemId}&userId=${user?._id}`,
+        `https://sinaih-health.vercel.app/users/deleteitemfromcart?productId=${itemId}&userId=${user?._id}`,
         {},
         {
           headers: {
@@ -36,7 +36,7 @@ const ProductCard = () => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/updateCart?productId=${itemId}&userId=${user?._id}&type=${delta}`,
+        `https://sinaih-health.vercel.app/users/updateCart?productId=${itemId}&userId=${user?._id}&type=${delta}`,
         {},
         {
           headers: {

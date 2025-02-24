@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { addUser } from "../../../Store/User";
-import { useDispatch } from "react-redux";
 import axios from "axios";
-import { FaHeart, FaRegHeart, FaFacebook, FaWhatsapp } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaFacebook, FaHeart, FaRegHeart, FaWhatsapp } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { addUser } from "../../../Store/User";
 import Modal from "../../Products/Components/Modal";
 
 const Details = ({ singleProduct }) => {
@@ -39,7 +38,7 @@ const Details = ({ singleProduct }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/wishlist?productId=${productId}&userId=${user?._id}`,
+        `https://sinaih-health.vercel.app/users/wishlist?productId=${productId}&userId=${user?._id}`,
         {},
         {
           headers: {
@@ -65,7 +64,7 @@ const Details = ({ singleProduct }) => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.put(
-        `http://localhost:3000/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantity}`,
+        `https://sinaih-health.vercel.app/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantity}`,
         {},
         {
           headers: {

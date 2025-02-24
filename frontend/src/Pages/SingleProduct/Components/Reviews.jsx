@@ -1,14 +1,14 @@
+import axios from "axios";
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import { FiThumbsUp } from "react-icons/fi";
 import { LuThumbsDown } from "react-icons/lu";
-import axios from "axios";
 
 const Reviews = ({ singleProduct }) => {
   const handleReviewLike = async (reviewId) => {
     try {
       const response = await axios.put(
-        "http://localhost:3000/product/reviewLike",
+        "https://sinaih-health.vercel.app/product/reviewLike",
         {
           reviewId: reviewId,
           productId: singleProduct._id,
@@ -26,7 +26,7 @@ const Reviews = ({ singleProduct }) => {
   const handleReviewDislike = async (reviewId) => {
     try {
       const response = await axios.put(
-        "http://localhost:3000/product/reviewDislike",
+        "https://sinaih-health.vercel.app/product/reviewDislike",
         {
           reviewId: reviewId,
           productId: singleProduct._id,

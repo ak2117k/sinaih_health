@@ -1,21 +1,20 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+import { addBrands } from "../Store/Brands";
+import CallButton from "./CallButton";
+import Footer from "./Footer/index";
 import Header from "./Header/index";
 import NavBar from "./Nav/index";
-import Footer from "./Footer/index";
 import WhatsAppButton from "./WhatsAppButton";
-import CallButton from "./CallButton";
-import axios from "axios";
-import { useEffect } from "react";
-import { addBrands } from "../Store/Brands";
-import { useDispatch } from "react-redux";
 
 const Layout = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchProducts = async () => {
       const products = await axios.get(
-        "http://localhost:3000/product/getProducts",
+        "https://sinaih-health.vercel.app/product/getProducts",
         {}
       );
       if (products.status === 200) {
