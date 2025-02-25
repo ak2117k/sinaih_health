@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const path=require("path")
+const path = require("path");
 // Load environment variables from the .env file
 dotenv.config();
 const connectDb = require("./config/db");
@@ -9,12 +9,8 @@ const cookieParser = require("cookie-parser");
 // const { restrictTo } = require("./middlewares/auth/restrictTo");
 
 const app = express();
-app.use(
-  cors({
-    origin: true, // Frontend URL
-    credentials: true,
-  })
-);
+import cors from "cors";
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -31,7 +27,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
-
 
 const PORT = process.env.PORT || 3000;
 
