@@ -17,8 +17,8 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-const userRoutes = require("./routes/UserRoutes");
-const productRoutes = require("./routes/ProductRoute");
+const userRoutes = require("./api/UserRoutes");
+const productRoutes = require("./api/ProductRoute");
 
 app.use("/api/users", userRoutes);
 

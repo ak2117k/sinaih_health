@@ -14,6 +14,7 @@ import Account from "./Pages/MyAccount/index.jsx";
 import Checkout from "./Pages/CheckOut/index.jsx";
 import Payment from "./Pages/PaymentOptions/index.jsx";
 import Review from "./Pages/Review/index.jsx";
+import AboutUs from "./Pages/AboutUs/index.jsx";
 import SingleProduct from "./Pages/SingleProduct/index.jsx";
 import { PersistGate } from "redux-persist/integration/react"; // PersistGate for loading state
 import { store, persistor } from "./Store/Store"; // Import the store and persistor
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
       <Route path="/orders/checkout" element={<Checkout />} />
       <Route path="/orders/payments" element={<Payment />} />
       <Route path="/orders/review" element={<Review />} />
+      <Route path="/about-us" element={<AboutUs />} />
       <Route path="/products/:productName" element={<SingleProduct />} />
       <Route path="/medicines/:brand" element={<Product />} />
     </Route>

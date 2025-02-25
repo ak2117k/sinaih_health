@@ -39,7 +39,7 @@ const TopHeader = () => {
               </div>
               <div>
                 <Link to="/">
-                  <h1 className="font-semibold text-gray-600">SINANI HEALTH</h1>
+                  <h1 className="font-semibold text-gray-600">SINAI HEALTH</h1>
                 </Link>
               </div>
             </div>

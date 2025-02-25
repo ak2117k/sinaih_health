@@ -66,9 +66,11 @@ const NavBar = () => {
             {/* <li className="p-2 hover:bg-[rgb(135,164,2)] hover:text-white text-black cursor-pointer">
               Testimonials
             </li> */}
-            <li className="p-2 hover:bg-[rgb(135,164,2)] hover:text-white text-black cursor-pointer">
-              About Us
-            </li>
+            <Link to="/about-us">
+              <li className="p-2 hover:bg-[rgb(135,164,2)] hover:text-white text-black cursor-pointer">
+                About Us
+              </li>
+            </Link>
             <li className="p-2 hover:bg-[rgb(135,164,2)] hover:text-white text-black cursor-pointer">
               Blogs
             </li>
