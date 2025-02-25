@@ -21,7 +21,7 @@ const Total = () => {
       <div className="flex justify-between items-center mb-2">
         <span className="text-gray-600">Total Price :</span>
         <span className="text-green-600 font-bold pr-2">
-          ₹{calculateTotal()}
+          ${calculateTotal()}
         </span>
       </div>
 

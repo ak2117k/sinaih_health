@@ -118,7 +118,7 @@ const ProductCard = () => {
                 </div>
                 {/* Product Total Price */}
                 <span className="text-sm text-green-600 font-semibold">
-                  Total: ₹{cartItem.quantity * (cartItem.productId.oprice || 0)}
+                  Total:${cartItem.quantity * (cartItem.productId.oprice || 0)}
                 </span>
               </div>
               <div className="text-xs text-gray-400 mt-1">

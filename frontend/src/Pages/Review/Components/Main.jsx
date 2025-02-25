@@ -12,7 +12,7 @@ const Main = () => {
     (acc, item) => acc + item.productId.oprice * item.quantity,
     0
   );
-  const shipping = 70;
+  const shipping = 50;
   const total = subTotal + shipping;
 
   const handlePlaceOrder = async () => {
@@ -108,9 +108,9 @@ const Main = () => {
                     </span>
                   </td>
                   <td className="py-2">{item?.quantity}</td>
-                  <td className="py-2">₹{item?.productId.oprice}</td>
+                  <td className="py-2">${item?.productId.oprice}</td>
                   <td className="py-2">
-                    ₹{item?.productId?.oprice * item?.quantity}
+                    ${item?.productId?.oprice * item?.quantity}
                   </td>
                 </tr>
               ))}
@@ -121,9 +121,9 @@ const Main = () => {
 
       {/* Order Summary */}
       <div className="mt-4 text-right">
-        <p className="font-medium">Sub Total: ₹{subTotal}</p>
-        <p className="font-medium">Shipping: ₹{shipping}</p>
-        <h3 className="text-xl font-bold mt-2">Total: ₹{total}</h3>
+        <p className="font-medium">Sub Total: ${subTotal}</p>
+        <p className="font-medium">Shipping: ${shipping}</p>
+        <h3 className="text-xl font-bold mt-2">Total: ${total}</h3>
       </div>
 
       {/* Place Order Button */}

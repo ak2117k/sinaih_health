@@ -43,11 +43,11 @@ const OrderSummary = () => {
               {/* Use brand as SKU */}
               <p>SKU: {brand}</p>
               <p>
-                Qty: {quantity} x ₹{price}
+                Qty: {quantity} x${price}
               </p>
-              <p className="font-bold">Total: ₹{itemTotalPrice}</p>
+              <p className="font-bold">Total:${itemTotalPrice}</p>
               {itemSavedAmount > 0 && (
-                <p className="text-red-600">You Saved ₹{itemSavedAmount}</p>
+                <p className="text-red-600">You Saved${itemSavedAmount}</p>
               )}
             </div>
           </div>

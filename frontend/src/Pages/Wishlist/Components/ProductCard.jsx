@@ -90,7 +90,7 @@ const ProductCard = () => {
               {product.description}
             </p>
             <div className="text-[rgb(135,164,2)] font-bold mt-2">
-              ₹{product.price}
+              ${product.price}
             </div>
 
             {/* Stock Status */}

@@ -94,9 +94,12 @@ const TopHeader = () => {
       </div>
 
       {/* For Larger Screens */}
-      <div className="hidden lg:flex justify-between bg-[rgb(135,164,2)] w-full">
-        <div className="ml-20 text-white text-sm">
-          Minimum order value is CA$ excluding shipping
+      <div className="hidden lg:flex justify-between bg-[rgb(135,164,2)] w-full p-1">
+        <div className="ml-20 text-white text-sm flex gap-6">
+          <div className="">Note : All values are in CA$</div>
+          <div className="">
+            Minimum order value is 50 CA$ excluding shipping
+          </div>
         </div>
         <div className="flex mr-20 cursor-pointer">
           <div className="pt-[4px] text-white text-sm">
