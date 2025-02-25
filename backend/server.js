@@ -9,7 +9,6 @@ const cookieParser = require("cookie-parser");
 // const { restrictTo } = require("./middlewares/auth/restrictTo");
 
 const app = express();
-import cors from "cors";
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(cookieParser());
