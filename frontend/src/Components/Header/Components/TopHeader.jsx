@@ -98,7 +98,7 @@ const TopHeader = () => {
         <div className="ml-20 text-white text-sm flex gap-6">
           <div className="">Note : All values are in CA$</div>
           <div className="">
-            Minimum order value is 50 CA$ excluding shipping
+            Minimum order value is 50 $CA excluding shipping
           </div>
         </div>
         <div className="flex mr-20 cursor-pointer">
