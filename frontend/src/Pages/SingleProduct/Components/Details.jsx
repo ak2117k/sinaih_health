@@ -111,10 +111,10 @@ const Details = ({ singleProduct }) => {
 
       <div className="mb-4">
         <span className="line-through text-gray-500 mr-2">
-          ₹{originalPrice}
+          ${originalPrice}
         </span>
         <span className="text-red-600 text-2xl font-semibold">
-          ₹{discountedPrice}
+          ${discountedPrice}
         </span>
         <span className="text-green-600 ml-2">{discountPercentage}% OFF</span>
       </div>
