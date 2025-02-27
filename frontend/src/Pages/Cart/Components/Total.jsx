@@ -27,12 +27,12 @@ const Total = () => {
 
       <div className="mt-2 flex justify-between">
         <span className="text-gray-600">Discount :</span>
-        <span className="text-green-600 font-bold pr-2">₹{0}</span>
+        <span className="text-green-600 font-bold pr-2">${0}</span>
       </div>
 
       <div className="mt-2 flex justify-between">
         <span className="text-gray-600">Delivery Fee :</span>
-        <span className="text-green-600 font-bold pr-2">₹{0}</span>
+        <span className="text-green-600 font-bold pr-2">${50}</span>
       </div>
 
       <div className="w-full mt-2">

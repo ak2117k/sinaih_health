@@ -3,9 +3,18 @@ import { useSelector } from "react-redux";
 
 const OrderSummary = () => {
   const user = useSelector((state) => state.user.user);
+  const buyNowProduct = useSelector((state) => state.buynowprod.product);
+  const productQuantity = useSelector((state) => state.buynowprod.quantity);
+
+  console.log(buyNowProduct, productQuantity);
 
   // Access the cart items
-  const cartItems = user.myCart.length > 0 ? user.myCart[0].items : [];
+  const cartItems =
+    user?.myCart?.length > 0
+      ? user.myCart[0].items
+      : buyNowProduct
+      ? [buyNowProduct]
+      : [];
 
   let totalPrice = 0;
   let totalOriginalPrice = 0;
@@ -16,12 +25,27 @@ const OrderSummary = () => {
       <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
 
       {cartItems.map((item) => {
-        const { productId, quantity } = item;
-        const { name, images, price, oprice, brand } = productId;
+        let name, images, price, oprice, brand, quantity;
+        if (user) {
+          let { productId, quantity } = item;
+          name = productId.name;
+          images = productId.images;
+          price = productId.price;
+          oprice = productId.oprice;
+          brand = productId.brand;
+          quantity = quantity;
+        } else {
+          name = item.name;
+          images = item.images;
+          price = item.price;
+          oprice = item.oprice;
+          brand = item.brand;
+          quantity = productQuantity;
+        }
 
         // Calculate total price and total original price for savings calculation
-        const itemTotalPrice = price * quantity;
-        const itemTotalOriginalPrice = oprice * quantity;
+        const itemTotalPrice = oprice * quantity;
+        const itemTotalOriginalPrice = price * quantity;
         const itemSavedAmount = itemTotalOriginalPrice - itemTotalPrice;
 
         totalPrice += itemTotalPrice;

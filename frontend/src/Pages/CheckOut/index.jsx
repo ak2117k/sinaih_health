@@ -9,7 +9,9 @@ const index = () => {
   const selectedAddress = useSelector(
     (state) => state.checkout.selectedAddress
   );
+  const buyNowAddress = useSelector((state) => state.buynowprod.address);
   console.log(selectedAddress);
+  console.log(buyNowAddress);
 
   return (
     <>
@@ -25,7 +27,7 @@ const index = () => {
             <Link to="/orders/payments">
               <button
                 className={`p-2 cursor-pointer text-white w-40 ${
-                  selectedAddress === null
+                  selectedAddress === null && buyNowAddress === null
                     ? "bg-gray cursor-not-allowed"
                     : "bg-[rgb(135,164,2)]"
                 }`}
@@ -35,7 +37,7 @@ const index = () => {
                       ? "rgb(135,164,2)"
                       : "gray",
                 }}
-                disabled={selectedAddress === null}
+                disabled={selectedAddress === null && buyNowAddress === null}
               >
                 Continue
               </button>
@@ -73,7 +75,7 @@ const index = () => {
               <Link to="/orders/payments">
                 <button
                   className={`p-2 cursor-pointer text-white w-40 ${
-                    selectedAddress === null
+                    selectedAddress === null && buyNowAddress === null
                       ? "bg-gray cursor-not-allowed"
                       : "bg-[rgb(135,164,2)]"
                   }`}
@@ -83,7 +85,7 @@ const index = () => {
                         ? "rgb(135,164,2)"
                         : "gray",
                   }}
-                  disabled={selectedAddress === null}
+                  disabled={selectedAddress === null && buyNowAddress === null}
                 >
                   Continue
                 </button>

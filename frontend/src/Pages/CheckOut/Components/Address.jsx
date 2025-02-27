@@ -6,8 +6,11 @@ import { setAddress } from "../../../Store/Checkout";
 const Address = () => {
   const [showForm, setShowForm] = useState(false);
   const user = useSelector((state) => state.user.user);
+  const buyNowAddress = useSelector((state) => state.buynowprod.address);
   console.log(user);
-  const [selectedAddress, setSelectedAddress] = useState(user.myAddresses[0]);
+  const [selectedAddress, setSelectedAddress] = useState(
+    user?.myAddresses[0] || buyNowAddress || null
+  );
   const dispatch = useDispatch();
   // const selectedCheckoutAddress = useSelector(
   //   (state) => state.checkout.selectedAddress
@@ -38,35 +41,67 @@ const Address = () => {
             + Add New Delivery Address
           </button>
           <div className="flex flex-wrap gap-4 sm:flex-col md:flex-row">
-            {user.myAddresses.map((address, index) => (
-              <div
-                key={index}
-                className={`border border-gray-400 p-4 rounded-md w-full md:w-1/2 lg:w-1/3 ${
-                  selectedAddress?._id === address?._id
-                    ? "border-green-600"
-                    : ""
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="address"
-                  onChange={() => handleSelectAddress(address)}
-                  className="mr-2"
-                  checked={selectedAddress?._id === address?._id}
-                />
-                <strong>{address.name}</strong>
-                <p className="mt-2 w-full sm:w-auto">Shipping Address</p>
-                <p className="w-full sm:w-auto">
-                  {address.AreaoRLocality}, {address.city}, {address.state} -{" "}
-                  {address.postalCode}, {address.country}
-                </p>
-                <p className="mt-4 w-full sm:w-auto">Billing Address</p>
-                <p className="w-full sm:w-auto">
-                  {address.AreaoRLocality}, {address.city}, {address.state} -{" "}
-                  {address.postalCode}, {address.country}
-                </p>
-              </div>
-            ))}
+            {user && user?.myAddresses?.length > 0
+              ? user?.myAddresses?.map((address, index) => (
+                  <div
+                    key={index}
+                    className={`border border-gray-400 p-4 rounded-md w-full md:w-1/2 lg:w-1/3 ${
+                      selectedAddress?._id === address?._id
+                        ? "border-green-600"
+                        : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="address"
+                      onChange={() => handleSelectAddress(address)}
+                      className="mr-2"
+                      checked={selectedAddress?._id === address?._id}
+                    />
+                    <strong>{address.name}</strong>
+                    <p className="mt-2 w-full sm:w-auto">Shipping Address</p>
+                    <p className="w-full sm:w-auto">
+                      {address.AreaoRLocality}, {address.city}, {address.state}{" "}
+                      - {address.postalCode}, {address.country}
+                    </p>
+                    <p className="mt-4 w-full sm:w-auto">Billing Address</p>
+                    <p className="w-full sm:w-auto">
+                      {address.AreaoRLocality}, {address.city}, {address.state}{" "}
+                      - {address.postalCode}, {address.country}
+                    </p>
+                  </div>
+                ))
+              : // When user doesn't have any addresses, show buyNowAddress
+                buyNowAddress && (
+                  <div
+                    className={`border border-gray-400 p-4 rounded-md w-full md:w-1/2 lg:w-1/3 ${
+                      selectedAddress?._id === buyNowAddress?._id
+                        ? "border-green-600"
+                        : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="address"
+                      onChange={() => handleSelectAddress(buyNowAddress)}
+                      className="mr-2"
+                      checked={selectedAddress?._id === buyNowAddress?._id}
+                    />
+                    <strong>{buyNowAddress.name}</strong>
+                    <p className="mt-2 w-full sm:w-auto">Shipping Address</p>
+                    <p className="w-full sm:w-auto">
+                      {buyNowAddress.AreaoRLocality}, {buyNowAddress.city},{" "}
+                      {buyNowAddress.state} - {buyNowAddress.postalCode},{" "}
+                      {buyNowAddress.country}
+                    </p>
+                    <p className="mt-4 w-full sm:w-auto">Billing Address</p>
+                    <p className="w-full sm:w-auto">
+                      {buyNowAddress.AreaoRLocality}, {buyNowAddress.city},{" "}
+                      {buyNowAddress.state} - {buyNowAddress.postalCode},{" "}
+                      {buyNowAddress.country}
+                    </p>
+                  </div>
+                )}
           </div>
         </div>
       )}

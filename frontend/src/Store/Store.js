@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import User from "./User";
 import Checkout from "./Checkout";
 import Brands from "./Brands";
+import BuyNowProd from "./BuynowProd";
 
 // Separate persist configuration for each slice
 const persistConfig = {
@@ -23,18 +24,26 @@ const checkoutPersistConfig = {
   ],
 };
 
+const buyNowPersistConfig = {
+  key: "buyNow",
+  storage,
+  whitelist: ["product", "quantity", "address"],
+};
+
 // Persist each reducer separately
 const persistedUserReducer = persistReducer(persistConfig, User);
 const persistedCheckoutReducer = persistReducer(
   checkoutPersistConfig,
   Checkout
 );
+const persistedBuyNowReducer = persistReducer(buyNowPersistConfig, BuyNowProd);
 
 const store = configureStore({
   reducer: {
     user: persistedUserReducer,
     checkout: persistedCheckoutReducer,
     brands: Brands,
+    buynowprod: persistedBuyNowReducer,
   },
 });
 

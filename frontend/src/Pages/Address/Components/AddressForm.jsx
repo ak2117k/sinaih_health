@@ -4,6 +4,7 @@ import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../../Store/User";
+import { addAddress } from "../../../Store/BuynowProd";
 
 const AddressForm = ({ onCancel, AddressData }) => {
   const user = useSelector((state) => state.user.user);
@@ -94,6 +95,18 @@ const AddressForm = ({ onCancel, AddressData }) => {
     // Validate phone number before submitting
     if (!isValidPhoneNumber(formData.mobile)) {
       setIsMobileValid(false);
+      setFormData({
+        Name: "",
+        mobile: "",
+        pincode: "",
+        city: "",
+        state: "",
+        addressLine: "",
+        areaLocality: "",
+        landmark: "",
+        country: "",
+        countryCode: "",
+      });
       return;
     }
 
@@ -104,12 +117,17 @@ const AddressForm = ({ onCancel, AddressData }) => {
       postalCode: formData.pincode,
       contactNumber: String(formData.mobile),
       country: formData.country,
-      userId: user._id,
+      userId: user?._id,
       flatNoOrBuildingNameAndStreetName: formData.addressLine,
       AreaoRLocality: formData.areaLocality,
       countryCode: formData.countryCode,
       addressId: AddressData?._id,
     };
+    if (!AddressData) {
+      dispatch(addAddress(addressData));
+      onCancel();
+      return;
+    }
 
     const url = AddressData
       ? "https://sinaih-health.vercel.app/api/users/updateAddress"

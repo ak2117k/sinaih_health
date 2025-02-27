@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addUser } from "../../../Store/User";
 import Modal from "../../Products/Components/Modal";
+import PayPalPayment from "../../../Components/PayPalPayment";
+import { useNavigate } from "react-router-dom";
+import { addproduct } from "../../../Store/BuynowProd";
+import { productquantity } from "../../../Store/BuynowProd";
 
 const Details = ({ singleProduct }) => {
   const [quantity, setQuantity] = useState(1);
@@ -16,6 +20,7 @@ const Details = ({ singleProduct }) => {
 
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleQuantityChange = (type) => {
     if (type === "increment") {
@@ -87,6 +92,12 @@ const Details = ({ singleProduct }) => {
     }
   };
 
+  const handleBuyNow = () => {
+    dispatch(addproduct(singleProduct));
+    dispatch(productquantity(quantity));
+    navigate("/orders/checkout");
+  };
+
   return (
     <div className="p-4 rounded-lg shadow-lg w-full h-auto">
       <div className="flex justify-between">
@@ -140,7 +151,7 @@ const Details = ({ singleProduct }) => {
         </p>
       )}
 
-      <div className="flex items-center mb-4">
+      <div className="flex items-center mb-4 ">
         <button
           onClick={() => handleQuantityChange("decrement")}
           className="px-2 py-1 border"
@@ -188,6 +199,13 @@ const Details = ({ singleProduct }) => {
           )}
         </div>
       </div>
+      <div
+        className="mt-2 bg-green-600 text-white w-60 py-2 rounded-lg cursor-pointer flex justify-center"
+        onClick={handleBuyNow}
+      >
+        Buy Now
+      </div>
+
       {notification !== "" && (
         <div
           className="p-2 flex justify-center items-center rounded-md fixed w-11/12 sm:w-9/12 md:w-8/12 lg:w-4/12 bottom-8 left-1/2 transform -translate-x-1/2 z-10 text-white transition-all ease-in-out duration-300"

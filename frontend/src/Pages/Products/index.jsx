@@ -29,7 +29,7 @@ const Index = () => {
       } else if (searchValue) {
         response = `https://sinaih-health.vercel.app/api/product/searchproduct?search=${searchValue}`;
       } else {
-        response = "https://sinaih-health.vercel.app/api/product/getProducts";
+        response = `https://sinaih-health.vercel.app/api/product/getProducts`;
       }
 
       try {
@@ -37,7 +37,7 @@ const Index = () => {
         if (result.status === 200) {
           setProducts(result.data.response);
           // Calculate the total number of pages
-          const total = Math.ceil(result.data.response.length / itemsPerPage);
+          const total = Math.ceil(result.data.response?.length / itemsPerPage);
           setTotalPages(total);
         }
       } catch (error) {
@@ -54,7 +54,7 @@ const Index = () => {
   // Calculate products to display on the current page
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = products?.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
@@ -79,7 +79,7 @@ const Index = () => {
 
   return (
     <>
-      {products.length > 0 && (
+      {products?.length > 0 && (
         <div className=" min-h-screen p-4">
           <div className="">
             <Top />

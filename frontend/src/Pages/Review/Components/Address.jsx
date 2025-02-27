@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Address = () => {
   const address = useSelector((state) => state.checkout.selectedAddress);
-  console.log(address);
+  const buyNowAddress = useSelector((state) => state.buynowprod.address);
 
   return (
     <div className="p-6 bg-white shadow-lg rounded-lg max-w-3xl mx-auto">
@@ -24,43 +24,46 @@ const Address = () => {
         <div className="space-y-2 text-gray-500">
           <p>
             Name:{" "}
-            <span className="font-medium text-gray-700">{address?.name}</span>
+            <span className="font-medium text-gray-700">
+              {address?.name || buyNowAddress?.name}
+            </span>
           </p>
           <p>
             Mobile:{" "}
             <span className="font-medium text-gray-700">
-              {address?.contactNumber}
+              {address?.contactNumber || buyNowAddress?.contactNumber}
             </span>
           </p>
           <p>
             Address:{" "}
             <span className="font-medium text-gray-700">
-              {address?.AreaoRLocality},{" "}
-              {address?.flatNoOrBuildingNameAndStreetName}
+              {address?.AreaoRLocality || buyNowAddress?.AreaoRLocality},{" "}
+              {address?.flatNoOrBuildingNameAndStreetName ||
+                buyNowAddress?.flatNoOrBuildingNameAndStreetName}
             </span>
           </p>
           <p>
             State/Province:{" "}
             <span className="font-medium text-gray-700 capitalize">
-              {address?.state}
+              {address?.state || buyNowAddress?.state}
             </span>
           </p>
           <p>
             City:{" "}
             <span className="font-medium text-gray-700 capitalize">
-              {address?.city}
+              {address?.city || buyNowAddress?.city}
             </span>
           </p>
           <p>
             Postal Code:{" "}
             <span className="font-medium text-gray-700">
-              {address?.postalCode}
+              {address?.postalCode || buyNowAddress?.postalCode}
             </span>
           </p>
           <p>
             Country:{" "}
             <span className="font-medium text-gray-700 capitalize">
-              {address?.country}
+              {address?.country || buyNowAddress?.country}
             </span>
           </p>
         </div>
@@ -82,43 +85,46 @@ const Address = () => {
         <div className="space-y-2 text-gray-500">
           <p>
             Name:{" "}
-            <span className="font-medium text-gray-700">{address?.name}</span>
+            <span className="font-medium text-gray-700">
+              {address?.name || buyNowAddress?.name}
+            </span>
           </p>
           <p>
             Mobile:{" "}
             <span className="font-medium text-gray-700">
-              {address?.contactNumber}
+              {address?.contactNumber || buyNowAddress?.contactNumber}
             </span>
           </p>
           <p>
             Address:{" "}
             <span className="font-medium text-gray-700">
-              {address?.AreaoRLocality},{" "}
-              {address?.flatNoOrBuildingNameAndStreetName}
+              {address?.AreaoRLocality || buyNowAddress?.AreaoRLocality},{" "}
+              {address?.flatNoOrBuildingNameAndStreetName ||
+                buyNowAddress?.flatNoOrBuildingNameAndStreetName}
             </span>
           </p>
           <p>
             State/Province:{" "}
             <span className="font-medium text-gray-700 capitalize">
-              {address?.state}
+              {address?.state || buyNowAddress?.state}
             </span>
           </p>
           <p>
             City:{" "}
             <span className="font-medium text-gray-700 capitalize">
-              {address?.city}
+              {address?.city || buyNowAddress?.city}
             </span>
           </p>
           <p>
             Postal Code:{" "}
             <span className="font-medium text-gray-700">
-              {address?.postalCode}
+              {address?.postalCode || buyNowAddress?.postalCode}
             </span>
           </p>
           <p>
             Country:{" "}
             <span className="font-medium text-gray-700 capitalize">
-              {address?.country}
+              {address?.country || buyNowAddress?.country}
             </span>
           </p>
         </div>

@@ -4,7 +4,6 @@ const paymentSchema = mongoose.Schema({
   paymentType: {
     type: String,
     required: true,
-    enum: ["COD", "PayPal"],
   },
   paymentStatus: {
     type: String,
@@ -41,16 +40,6 @@ const paymentSchema = mongoose.Schema({
       default: "pending",
       required: function () {
         return this.paymentType === "PayPal"; // Only required for PayPal
-      },
-    },
-  },
-  codDetails: {
-    deliveryStatus: {
-      type: String,
-      enum: ["pending", "delivered", "failed"],
-      default: "pending",
-      required: function () {
-        return this.paymentType === "COD";
       },
     },
   },

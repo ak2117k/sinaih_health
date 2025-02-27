@@ -18,6 +18,7 @@ import AboutUs from "./Pages/AboutUs/index.jsx";
 import SingleProduct from "./Pages/SingleProduct/index.jsx";
 import { PersistGate } from "redux-persist/integration/react"; // PersistGate for loading state
 import { store, persistor } from "./Store/Store"; // Import the store and persistor
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -26,6 +27,17 @@ import {
 } from "react-router-dom";
 import { Provider } from "react-redux";
 
+const initialOptions = {
+  "client-id":
+    "Afq4VoZx-lQOAwI5EOf_DE5athgiE-mgHasPPyrNP1xIvHVwmBv_SH9EQgU2uO4wliAWcBf9oOzrojzz",
+  // "enable-funding": "venmo",
+  "buyer-country": "CA",
+  currency: "CAD",
+  "data-page-type": "product-details",
+  components: "buttons",
+  "data-sdk-integration-source": "developer-studio",
+  // intent: "CAPTURE",
+};
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -57,7 +69,9 @@ createRoot(document.getElementById("root")).render(
           console.log("Rehydrated state:", store.getState());
         }}
       >
-        <RouterProvider router={router} />
+        <PayPalScriptProvider options={initialOptions}>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
       </PersistGate>
     </Provider>
   </StrictMode>
