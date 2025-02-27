@@ -33,7 +33,7 @@ const client = new Client({
     oAuthClientSecret: PAYPAL_CLIENT_SECRET,
   },
   timeout: 0,
-  environment: Environment.Sandbox,
+  environment: Environment.Live,
   logging: {
     logLevel: LogLevel.Info,
     logRequest: { logBody: true },
@@ -49,6 +49,7 @@ const paymentsController = new PaymentsController(client);
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
  */
 const createOrder = async (cart) => {
+  console.log("Entering create order");
   const collect = {
     body: {
       intent: "CAPTURE",
@@ -65,13 +66,15 @@ const createOrder = async (cart) => {
     prefer: "return=minimal",
   };
 
+  console.log("create order collect", collect);
+
   try {
     const { body, ...httpResponse } = await ordersController.ordersCreate(
       collect
     );
     // Get more response info...
     // const { statusCode, headers } = httpResponse;
-
+    console.log("body of create order", JSON.parse(body));
     return {
       jsonResponse: JSON.parse(body),
       httpStatusCode: httpResponse.statusCode,

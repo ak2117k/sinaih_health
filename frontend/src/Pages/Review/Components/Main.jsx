@@ -96,7 +96,7 @@ const Main = () => {
       };
 
       const response = await axios.post(
-        "https://sinaih-health.vercel.app/api//buynow/createBuyNowBooking",
+        "https://sinaih-health.vercel.app/api/buynow/createBuyNowBooking",
         orderDetails
       );
 

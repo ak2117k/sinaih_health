@@ -18,6 +18,7 @@ const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
         }}
         createOrder={async (data, actions) => {
           try {
+            console.log("creating order");
             const response = await fetch(
               "https://sinaih-health.vercel.app/api/orders",
               {
@@ -36,6 +37,8 @@ const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
                 }),
               }
             );
+
+            console.log(response);
 
             const orderData = await response.json();
 
@@ -59,7 +62,7 @@ const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
           try {
             console.log("Entering the approve payment");
             const response = await fetch(
-              `https://sinaih-health.vercel.app/api//orders/${data.orderID}/capture`,
+              `https://sinaih-health.vercel.app/api/orders/${data.orderID}/capture`,
               {
                 method: "POST",
                 headers: {
