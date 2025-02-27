@@ -31,7 +31,7 @@ const initialOptions = {
   "client-id":
     "Afq4VoZx-lQOAwI5EOf_DE5athgiE-mgHasPPyrNP1xIvHVwmBv_SH9EQgU2uO4wliAWcBf9oOzrojzz",
   // "enable-funding": "venmo",
-  "buyer-country": "CA",
+  // "buyer-country": "CA",
   currency: "CAD",
   "data-page-type": "product-details",
   components: "buttons",

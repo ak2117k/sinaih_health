@@ -168,6 +168,13 @@ const Main = () => {
         <h3 className="text-xl font-bold mt-2">Total: ${total}</h3>
       </div>
 
+      <div className="mt-4">
+        <PayPalPayment
+          orderDetails={orderDetails}
+          onTransactionComplete={handleTransactionComplete}
+        />
+      </div>
+
       {/* Notification */}
       {notification && (
         <div
@@ -178,14 +185,6 @@ const Main = () => {
           {notification}
         </div>
       )}
-
-      {/* PayPal Payment Component */}
-      <div className="mt-4">
-        <PayPalPayment
-          orderDetails={orderDetails}
-          onTransactionComplete={handleTransactionComplete}
-        />
-      </div>
     </div>
   );
 };
