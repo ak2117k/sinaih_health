@@ -12,7 +12,7 @@ const ContactUs = () => {
       <div className="mt-2">
         {" "}
         <span className="font-semibold">Email: </span>
-        sinanihealth@gmail.com
+        sinaihealthstore@gmail.com
       </div>
       <div className="w-60 mt-6 text-left">
         <h2 className="block text-xs">

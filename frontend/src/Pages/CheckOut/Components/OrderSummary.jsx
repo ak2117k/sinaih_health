@@ -6,8 +6,6 @@ const OrderSummary = () => {
   const buyNowProduct = useSelector((state) => state.buynowprod.product);
   const productQuantity = useSelector((state) => state.buynowprod.quantity);
 
-  console.log(buyNowProduct, productQuantity);
-
   // Access the cart items
   const cartItems =
     user?.myCart?.length > 0
@@ -27,13 +25,14 @@ const OrderSummary = () => {
       {cartItems.map((item) => {
         let name, images, price, oprice, brand, quantity;
         if (user) {
-          let { productId, quantity } = item;
+          console.log("using user cart items");
+          let { productId } = item;
           name = productId.name;
           images = productId.images;
           price = productId.price;
           oprice = productId.oprice;
           brand = productId.brand;
-          quantity = quantity;
+          quantity = item.quantity;
         } else {
           name = item.name;
           images = item.images;

@@ -27,24 +27,16 @@ const bookingSchema = mongoose.Schema({
     required: true,
   },
   shipping_info: {
-    shipping_type: {
-      type: String,
-      required: true,
-    },
     shipping_date: { type: Date, required: true, default: Date.now() },
-    estimated_delivery: { type: Date },
     shipping_Cost: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
   OrderSummary: {
     Total: {
-      type: Number,
+      type: String,
       required: true,
-    },
-    taxes: {
-      type: Number,
     },
   },
   OrderStatus: {

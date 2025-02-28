@@ -60,6 +60,8 @@ const Main = () => {
     shippingAddress: checkOutDetails.selectedAddress,
   };
 
+  console.log(orderDetails);
+
   const handleRedirect = () => {
     setTimeout(() => {
       setNotification(""); // Clear notification
@@ -67,61 +69,144 @@ const Main = () => {
     }, 6000);
   };
 
-  const handleTransactionComplete = async (transaction, orderData) => {
+  const handleTransactionComplete = async (transaction) => {
     try {
-      const transactionId = transaction.id;
-      const transactionAmount = transaction.amount.value;
-      const transactionCurrency = transaction.amount.currency_code;
+      let orderDetails;
+      let endpoint;
 
-      const products = orderData.products.map((product) => ({
-        productId: product.productId,
-        name: product.productName,
-        quantity: product.quantity,
-        price: product.price,
-      }));
+      if (user) {
+        // Case 1: Registered User
+        orderDetails = {
+          userId: user._id,
+          shippingAddress: checkOutDetails.selectedAddress,
+          bookingAddress: checkOutDetails.selectedAddress,
+          products: user.myCart[0].items.map((item) => ({
+            productId: item.productId._id,
+            quantity: item.quantity,
+            price: item.productId.oprice,
+            total_price: item.productId.oprice * item.quantity,
+          })),
+          payment_info: {
+            transactionId: transaction.id,
+            amount: transaction.amount.value,
+            currency: transaction.amount.currency_code,
+          },
+          shipping_info: {
+            shipping_date: new Date(),
+            shipping_Cost: 50,
+          },
+          OrderSummary: {
+            Total: transaction.amount.value,
+          },
+        };
+        endpoint =
+          "https://sinaih-health.vercel.app/api/users/handleCreateBooking";
+      } else {
+        // Case 2: Guest User
+        orderDetails = {
+          email: buNowUserEmail,
+          shippingAddress: buyNowAddress,
+          bookingAddress: buyNowAddress,
+          payment: {
+            transactionId: transaction.id,
+            amount: transaction.amount.value,
+            currency: transaction.amount.currency_code,
+          },
+          products: [
+            {
+              productId: buyNowProduct._id,
+              productName: buyNowProduct.name,
+              quantity: productQuantity,
+              price: buyNowProduct.oprice,
+              total_price: buyNowProduct.oprice * productQuantity,
+            },
+          ],
+          shipping_info: 50,
+          OrderSummary: {
+            Total: transaction.amount.value,
+          },
+        };
+        endpoint =
+          "https://sinaih-health.vercel.app/api/buynow/createBuyNowBooking";
+      }
 
-      const shippingAddress = orderData.shippingAddress || buyNowAddress;
+      // Send API request
+      const response = await axios.post(endpoint, orderDetails);
 
-      const orderDetails = {
-        email: buNowUserEmail,
-        shippingAddress: shippingAddress,
-        bookingAddress: shippingAddress,
-        payment: {
-          transactionId: transactionId,
-          amount: transactionAmount,
-          currency: transactionCurrency,
-        },
-        products: products,
-        shipping_info: 50,
-        OrderSummary: {
-          Total: transactionAmount,
-        },
-      };
-      console.log(orderDetails);
-
-      const response = await axios.post(
-        "https://sinaih-health.vercel.app/api/buynow/createBuyNowBooking",
-        orderDetails
-      );
-
-      if (response.data.message === "Booking added successfully.") {
-        setOrderId(response?.data?.response._id);
+      if (response.data.message.includes("Booking created successfully")) {
         setShowSucessModal(true);
         setNotification(
-          `Congratulations! You have successfully placed the order. Your order is ${response.data.response._id}. Kindly WhatsApp or call on +14378753944 for further updates or any queries.`
+          `Congratulations! Your order has been placed successfully. Your order ID is ${
+            response.data.updatedUser?.myOrders?.slice(-1)[0] ||
+            response.data.response?._id
+          }. Contact +14378753944 for queries.`
         );
         setNotificationType("success");
       } else {
         setNotification("Error placing order. Please try again.");
-        setNotificationType("error"); // Set notification type to error
+        setNotificationType("error");
       }
     } catch (error) {
       console.error("Error in transaction completion:", error);
       setNotification("An error occurred while processing the transaction.");
       setNotificationType("error");
     }
-    // cgvv
   };
+
+  // const handleTransactionComplete = async (transaction, orderData) => {
+  //   try {
+  //     const transactionId = transaction.id;
+  //     const transactionAmount = transaction.amount.value;
+  //     const transactionCurrency = transaction.amount.currency_code;
+
+  //     const products = orderData.products.map((product) => ({
+  //       productId: product.productId,
+  //       name: product.productName,
+  //       quantity: product.quantity,
+  //       price: product.price,
+  //     }));
+
+  //     const shippingAddress = orderData.shippingAddress || buyNowAddress;
+
+  //     const orderDetails = {
+  //       email: buNowUserEmail,
+  //       shippingAddress: shippingAddress,
+  //       bookingAddress: shippingAddress,
+  //       payment: {
+  //         transactionId: transactionId,
+  //         amount: transactionAmount,
+  //         currency: transactionCurrency,
+  //       },
+  //       products: products,
+  //       shipping_info: 50,
+  //       OrderSummary: {
+  //         Total: transactionAmount,
+  //       },
+  //     };
+
+  //     const response = await axios.post(
+  //       "https://sinaih-health.vercel.app/api/buynow/createBuyNowBooking",
+  //       orderDetails
+  //     );
+
+  //     if (response.data.message === "Booking added successfully.") {
+  //       setOrderId(response?.data?.response._id);
+  //       setShowSucessModal(true);
+  //       setNotification(
+  //         `Congratulations! You have successfully placed the order. Your order is ${response.data.response._id}. Kindly WhatsApp or call on +14378753944 for further updates or any queries.`
+  //       );
+  //       setNotificationType("success");
+  //     } else {
+  //       setNotification("Error placing order. Please try again.");
+  //       setNotificationType("error"); // Set notification type to error
+  //     }
+  //   } catch (error) {
+  //     console.error("Error in transaction completion:", error);
+  //     setNotification("An error occurred while processing the transaction.");
+  //     setNotificationType("error");
+  //   }
+  //   // cgvv
+  // };
 
   return (
     <div className="p-4 max-w-3xl mx-auto">

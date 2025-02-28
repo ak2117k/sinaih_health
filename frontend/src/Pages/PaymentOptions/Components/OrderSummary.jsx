@@ -25,13 +25,13 @@ const OrderSummary = () => {
       {cartItems.map((item) => {
         let name, images, price, oprice, brand, quantity;
         if (user) {
-          let { productId, quantity } = item;
+          let { productId } = item;
           name = productId.name;
           images = productId.images;
           price = productId.price;
           oprice = productId.oprice;
           brand = productId.brand;
-          quantity = quantity;
+          quantity = item.quantity;
         } else {
           name = item.name;
           images = item.images;

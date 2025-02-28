@@ -12,6 +12,7 @@ const Index = () => {
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const [itemsPerPage] = useState(6); // Define how many items per page
   const [totalPages, setTotalPages] = useState(0); // To calculate total pages
+  const [loader, setLoader] = useState(false);
 
   const params = useParams();
   const location = useLocation();
@@ -23,6 +24,7 @@ const Index = () => {
     const searchValue = search.split("=")[1];
 
     const fetchProducts = async () => {
+      setLoader(true);
       let response;
       if (params.brand) {
         response = `https://sinaih-health.vercel.app/api/product/getProducts?brand=${params.brand}`;
@@ -39,9 +41,12 @@ const Index = () => {
           // Calculate the total number of pages
           const total = Math.ceil(result.data.response?.length / itemsPerPage);
           setTotalPages(total);
+          setLoader(false);
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoader(false);
       }
     };
     fetchProducts();
@@ -79,7 +84,17 @@ const Index = () => {
 
   return (
     <>
-      {products?.length > 0 && (
+      {loader && (
+        <div className="w-full h-screen flex justify-center items-center bg-gray-200 opacity-80 fixed top-0 left-0 z-50">
+          <img
+            className="w-24 sm:w-32 md:w-48 lg:w-64"
+            src="https://cdn.dribbble.com/userupload/33909998/file/original-ba7efaee5c6539cd0b51f0dedd8e50e1.gif"
+            alt="Loading..."
+          />
+        </div>
+      )}
+
+      {!loader && products?.length > 0 && (
         <div className=" min-h-screen p-4">
           <div className="">
             <Top />
@@ -135,7 +150,7 @@ const Index = () => {
         </div>
       )}
 
-      {products.length === 0 && (
+      {!loader && products.length === 0 && (
         <div className="w-full mt-12 flex flex-col items-center justify-center text-center">
           <div className="text-4xl mb-4">
             <FaRegSadTear className="text-red-500" />

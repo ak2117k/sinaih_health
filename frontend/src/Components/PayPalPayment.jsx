@@ -4,8 +4,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
   const [message, setMessage] = useState("");
-  // const { totalPrice, productDescription } = orderDetails;
-  console.log(orderDetails.products[0].productName, orderDetails.total);
+  // console.log(orderDetails.products[0].productName, orderDetails.total);
   return (
     <div className="">
       {message && <div className="">{message}</div>}
@@ -19,6 +18,20 @@ const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
         createOrder={async (data, actions) => {
           try {
             console.log("creating order");
+            let productInfo;
+            if (Array.isArray(orderDetails.products)) {
+              productInfo = {
+                description: orderDetails.products
+                  .map((p) => p.productId)
+                  .join(", "), // Combine multiple product names
+                price: orderDetails.total,
+              };
+            } else {
+              productInfo = {
+                description: orderDetails.products[0].productName, // Assume single product case
+                price: orderDetails.total,
+              };
+            }
             const response = await fetch(
               "https://sinaih-health.vercel.app/api/orders",
               {
@@ -30,20 +43,15 @@ const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
                 // like product ids and quantities
 
                 body: JSON.stringify({
-                  product: {
-                    description: orderDetails.products[0].productName,
-                    price: orderDetails.total,
-                  },
+                  product: productInfo,
                 }),
               }
             );
 
-            console.log(response);
-
             const orderData = await response.json();
 
             if (orderData.id) {
-              console.log(orderData.id);
+              // console.log(orderData.id);
               return orderData.id;
             } else {
               const errorDetail = orderData?.details?.[0];
@@ -54,7 +62,7 @@ const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
               throw new Error(errorMessage);
             }
           } catch (error) {
-            console.error(error);
+            // console.error(error);
             setMessage(`Could not initiate PayPal Checkout...${error}`);
           }
         }}
@@ -72,7 +80,7 @@ const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
             );
 
             const orderData = await response.json();
-            console.log(orderData);
+            // console.log(orderData);
             // Three cases to handle:
             //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
             //   (2) Other non-recoverable errors -> Show a failure message

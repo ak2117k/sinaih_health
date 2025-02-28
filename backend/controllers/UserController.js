@@ -500,16 +500,6 @@ const handleCreateBooking = async (req, res) => {
       userId,
     } = req.body;
 
-    console.log(
-      shippingAddress,
-      bookingAddress,
-      products,
-      payment_info,
-      shipping_info,
-      OrderSummary,
-      userId
-    );
-
     // Validate required fields
     if (
       !shippingAddress ||
@@ -524,21 +514,15 @@ const handleCreateBooking = async (req, res) => {
     }
 
     const newPayment = new Payments({
-      paymentType: payment_info.method,
-      paymentStatus: payment_info.status,
       amountPaid: OrderSummary.Total,
-      codDetails: payment_info.codDetails,
-      transactionId: payment_info.transactionId,
-      payerId: payment_info.payerId,
     });
 
     // Save the payment and get the ObjectId
     const savedPayment = await newPayment.save();
 
     const shippingDetails = {
-      shipping_type: shipping_info.shippingMethod,
       shipping_date: Date.now(),
-      shipping_Cost: shipping_info.shippingCost,
+      shipping_Cost: 50,
     };
 
     const newBooking = new Bookings({
