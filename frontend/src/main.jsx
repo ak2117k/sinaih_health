@@ -37,6 +37,7 @@ const initialOptions = {
   components: "buttons",
   "data-sdk-integration-source": "developer-studio",
   // intent: "CAPTURE",
+  environment: "production",
 };
 const router = createBrowserRouter(
   createRoutesFromElements(
