@@ -33,13 +33,15 @@ const client = new Client({
     oAuthClientSecret: PAYPAL_CLIENT_SECRET,
   },
   timeout: 0,
-  environment: Environment.Live,
+  environment: "Production",
   logging: {
-    logLevel: LogLevel.Info,
+    logLevel: LogLevel.Debug,
     logRequest: { logBody: true },
     logResponse: { logHeaders: true },
   },
 });
+
+console.log(client);
 
 const ordersController = new OrdersController(client);
 const paymentsController = new PaymentsController(client);
@@ -57,9 +59,8 @@ const createOrder = async (cart) => {
         {
           amount: {
             currencyCode: "CAD",
-            value: `${cart.price}`,
+            value: String(cart.price),
           },
-          description: cart.description,
         },
       ],
     },
@@ -69,9 +70,13 @@ const createOrder = async (cart) => {
   console.log("create order collect", collect);
 
   try {
-    const { body, ...httpResponse } = await ordersController.ordersCreate(
-      collect
-    );
+    const response = await ordersController.ordersCreate(collect);
+    console.log(response);
+    if (!response || !response.body) {
+      throw new Error("Invalid response from paypal");
+    }
+    console.log(response);
+    const { body, ...httpResponse } = response;
     // Get more response info...
     // const { statusCode, headers } = httpResponse;
     console.log("body of create order", JSON.parse(body));
@@ -80,10 +85,14 @@ const createOrder = async (cart) => {
       httpStatusCode: httpResponse.statusCode,
     };
   } catch (error) {
+    console.log("goes to catch block", error);
     if (error instanceof ApiError) {
       // const { statusCode, headers } = error;
-      throw new Error(error.message);
+      console.error("PayPal API Error Status:", error.statusCode);
+      console.error("PayPal API Error Headers:", error.headers);
+      throw new Error(error.message, error);
     }
+    throw new Error("Error creating PayPal order: " + error);
   }
 };
 
