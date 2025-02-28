@@ -118,7 +118,7 @@ const Main = () => {
     } catch (error) {
       console.error("Error in transaction completion:", error);
       setNotification("An error occurred while processing the transaction.");
-      setNotificationType("error"); // Set notification type to error
+      setNotificationType("error");
     }
   };
 
