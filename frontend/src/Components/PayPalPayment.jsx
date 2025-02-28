@@ -32,7 +32,7 @@ const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
                 body: JSON.stringify({
                   product: {
                     description: orderDetails.products[0].productName,
-                    price: 1,
+                    price: orderDetails.total,
                   },
                 }),
               }

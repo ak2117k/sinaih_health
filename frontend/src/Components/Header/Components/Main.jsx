@@ -29,7 +29,7 @@ const Main = () => {
     <div className="">
       {/* For Smaller and medium Screen */}
       <div className="lg:hidden md:hidden sm:block bg-[rgb(135,164,2)] text-sm text-white flex justify-center items-center text-center p-2">
-        Minimum order value is CA$ excluding shipping
+        Minimum order value is 50 CA$ excluding shipping
       </div>
 
       {/* For Larger Screen  */}

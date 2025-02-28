@@ -183,7 +183,9 @@ const SimilarProductCont = ({ similarProducts }) => {
                           {product.price}
                         </h2>
                       )}
-                      <h2 className="text-xl font-bold">${product?.oprice}</h2>
+                      <h2 className="text-xl font-bold">
+                        CA${product?.oprice}
+                      </h2>
                     </div>
 
                     {/* Quantity and Add to Cart */}

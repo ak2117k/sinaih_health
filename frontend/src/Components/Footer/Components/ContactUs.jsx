@@ -7,8 +7,7 @@ const ContactUs = () => {
         <h2 className="font-semibold text-gray-600">Contact US</h2>
       </div>
       <div className="mt-4">
-        <span className="font-semibold">WhatsApp: </span>
-        +91 XXXXXXXXXX
+        <span className="font-semibold">WhatsApp: +14378753944 </span>
       </div>
       <div className="mt-2">
         {" "}
@@ -20,9 +19,6 @@ const ContactUs = () => {
           Please Contact only on WhatsApp and Email.
         </h2>
         <div className="text-xs">
-          The number is only for WhatsApp .<br />
-          Please do not call on the number.
-          <br />
           Kindy send your query via Email or WhatsApp.
           <br />
           We will respond as soon as possible. Thank you for the patience...{" "}
@@ -38,10 +34,6 @@ const ContactUs = () => {
         <span className="font-semibold">Note :</span>
         "We are solely a seller. For consultations, please contact your
         preferred doctor."
-      </div>
-      <div className="mt-2">
-        <span className="font-semibold">GSTIN:</span>
-        XXXXXXXXX
       </div>
     </div>
   );

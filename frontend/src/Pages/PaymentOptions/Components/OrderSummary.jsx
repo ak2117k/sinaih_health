@@ -65,11 +65,11 @@ const OrderSummary = () => {
               {/* Use brand as SKU */}
               <p>SKU: {brand}</p>
               <p>
-                Qty: {quantity} x${price}
+                Qty: {quantity} xCA${price}
               </p>
-              <p className="font-bold">Total:${itemTotalPrice}</p>
+              <p className="font-bold">Total:CA${itemTotalPrice}</p>
               {itemSavedAmount > 0 && (
-                <p className="text-red-600">You Saved${itemSavedAmount}</p>
+                <p className="text-red-600">You Saved CA${itemSavedAmount}</p>
               )}
             </div>
           </div>
@@ -80,13 +80,13 @@ const OrderSummary = () => {
       <div className="flex justify-end items-center mt-6 gap-4 flex-col sm:flex-row">
         <div className="mr-10 flex gap-2">
           <div className="font-bold">Total Value</div>
-          <div className="font-bold text-lg mr-6">${totalPrice}</div>
+          <div className="font-bold text-lg mr-6">CA${totalPrice}</div>
         </div>
       </div>
       {totalSavings > 0 && (
         <div className="flex justify-between items-center mt-2">
           <div className="text-red-600">You Saved</div>
-          <div className="text-red-600 font-bold">${totalSavings}</div>
+          <div className="text-red-600 font-bold">CA${totalSavings}</div>
         </div>
       )}
     </div>

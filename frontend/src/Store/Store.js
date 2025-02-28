@@ -27,7 +27,7 @@ const checkoutPersistConfig = {
 const buyNowPersistConfig = {
   key: "buyNow",
   storage,
-  whitelist: ["product", "quantity", "address"],
+  whitelist: ["product", "quantity", "address", "email"],
 };
 
 // Persist each reducer separately

@@ -4,6 +4,7 @@ const initialState = {
   product: null,
   quantity: 0,
   address: null,
+  email: null,
 };
 
 const buynowprod = createSlice({
@@ -19,8 +20,12 @@ const buynowprod = createSlice({
     addAddress: (state, action) => {
       state.address = action.payload;
     },
+    useremail: (state, action) => {
+      state.email = action.payload;
+    },
   },
 });
 
-export const { addproduct, productquantity, addAddress } = buynowprod.actions;
+export const { addproduct, productquantity, addAddress, useremail } =
+  buynowprod.actions;
 export default buynowprod.reducer;

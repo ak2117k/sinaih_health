@@ -3,16 +3,19 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import PayPalPayment from "../../../Components/PayPalPayment";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Main = () => {
   const user = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
+  const buNowUserEmail = useSelector((state) => state.buynowprod.email);
   const checkOutDetails = useSelector((state) => state.checkout);
   const buyNowProduct = useSelector((state) => state.buynowprod.product);
   const productQuantity = useSelector((state) => state.buynowprod.quantity);
   const buyNowAddress = useSelector((state) => state.buynowprod.address);
   const [notification, setNotification] = useState("");
   const [notificationType, setNotificationType] = useState(""); // 'success' or 'error'
+  const [showsucessModal, setShowSucessModal] = useState(false);
+  const navigate = useNavigate();
 
   // Handle cartItems based on whether user exists or not
   const cartItems =
@@ -80,7 +83,7 @@ const Main = () => {
       const shippingAddress = orderData.shippingAddress || buyNowAddress;
 
       const orderDetails = {
-        email: orderData.email || "abc@gmail.com",
+        email: buNowUserEmail,
         shippingAddress: shippingAddress,
         bookingAddress: shippingAddress,
         payment: {
@@ -94,6 +97,7 @@ const Main = () => {
           Total: transactionAmount,
         },
       };
+      console.log(orderDetails);
 
       const response = await axios.post(
         "https://sinaih-health.vercel.app/api/buynow/createBuyNowBooking",
@@ -101,11 +105,12 @@ const Main = () => {
       );
 
       if (response.data.message === "Booking added successfully.") {
+        setOrderId(response?.data?.response._id);
+        setShowSucessModal(true);
         setNotification(
           `Congratulations! You have successfully placed the order. Your order is ${response.data.response._id}. Kindly WhatsApp or call on +14378753944 for further updates or any queries.`
         );
-        setNotificationType("success"); // Set notification type to success
-        handleRedirect();
+        setNotificationType("success");
       } else {
         setNotification("Error placing order. Please try again.");
         setNotificationType("error"); // Set notification type to error
@@ -119,6 +124,20 @@ const Main = () => {
 
   return (
     <div className="p-4 max-w-3xl mx-auto">
+      {notificationType === "success" && showsucessModal && (
+        <div className="fixed top-0 left-0 w-full bg-green-100 text-white p-4 shadow-md z-50 flex flex-col sm:flex-row justify-between items-center sm:items-center sm:w-auto sm:mx-auto sm:px-6 sm:py-3">
+          <div className="flex-1 text-center sm:text-left">
+            <p className="font-semibold text-sm text-green-600 sm:text-base">
+              {notification}
+            </p>
+          </div>
+          <Link to="/medicines">
+            <button className="bg-green-400 text-white px-4 py-2 rounded-lg mt-4 sm:mt-0 cursor-pointer sm:ml-4 w-full sm:w-auto">
+              Click here to buy more products
+            </button>
+          </Link>
+        </div>
+      )}
       <h1 className="font-bold text-[16px] text-center sm:text-left">
         Review Your Order
       </h1>
@@ -150,9 +169,9 @@ const Main = () => {
                     </span>
                   </td>
                   <td className="py-2">{item?.quantity}</td>
-                  <td className="py-2">${item?.productId.oprice}</td>
+                  <td className="py-2">CA${item?.productId.oprice}</td>
                   <td className="py-2">
-                    ${item?.productId?.oprice * item?.quantity}
+                    CA${item?.productId?.oprice * item?.quantity}
                   </td>
                 </tr>
               ))}
@@ -163,9 +182,9 @@ const Main = () => {
 
       {/* Order Summary */}
       <div className="mt-4 text-right">
-        <p className="font-medium">Sub Total: ${subTotal}</p>
-        <p className="font-medium">Shipping: ${shipping}</p>
-        <h3 className="text-xl font-bold mt-2">Total: ${total}</h3>
+        <p className="font-medium">Sub Total: CA${subTotal}</p>
+        <p className="font-medium">Shipping: CA${shipping}</p>
+        <h3 className="text-xl font-bold mt-2">Total: CA${total}</h3>
       </div>
 
       <div className="mt-4">

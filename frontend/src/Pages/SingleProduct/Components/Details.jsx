@@ -10,6 +10,7 @@ import PayPalPayment from "../../../Components/PayPalPayment";
 import { useNavigate } from "react-router-dom";
 import { addproduct } from "../../../Store/BuynowProd";
 import { productquantity } from "../../../Store/BuynowProd";
+import { useremail } from "../../../Store/BuynowProd";
 
 const Details = ({ singleProduct }) => {
   const [quantity, setQuantity] = useState(1);
@@ -17,8 +18,13 @@ const Details = ({ singleProduct }) => {
   const [notification, setnotification] = useState("");
   const [cartText, setCartText] = useState("Add To Cart");
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showBuyNowUseremailModal, setShowBuyNowUseremailModal] =
+    useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const user = useSelector((state) => state.user.user);
+  const buNowUserEmail = useSelector((state) => state.buynowprod.email);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -93,8 +99,30 @@ const Details = ({ singleProduct }) => {
   };
 
   const handleBuyNow = () => {
+    if (buNowUserEmail === null) {
+      setShowBuyNowUseremailModal(true);
+      return;
+    }
     dispatch(addproduct(singleProduct));
     dispatch(productquantity(quantity));
+    navigate("/orders/checkout");
+  };
+
+  const handleEmailCancel = () => {
+    setShowBuyNowUseremailModal(false);
+  };
+  const handleEmailSubmit = () => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(userEmail)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+    // Proceed if email is valid
+    setEmailError(""); // Clear previous error
+    dispatch(useremail(userEmail));
+    dispatch(addproduct(singleProduct));
+    dispatch(productquantity(quantity));
+    setShowBuyNowUseremailModal(false);
     navigate("/orders/checkout");
   };
 
@@ -122,10 +150,10 @@ const Details = ({ singleProduct }) => {
 
       <div className="mb-4">
         <span className="line-through text-gray-500 mr-2">
-          ${originalPrice}
+          CA${originalPrice}
         </span>
         <span className="text-red-600 text-2xl font-semibold">
-          ${discountedPrice}
+          CA${discountedPrice}
         </span>
         <span className="text-green-600 ml-2">{discountPercentage}% OFF</span>
       </div>
@@ -225,6 +253,41 @@ const Details = ({ singleProduct }) => {
         <div className="fixed top-6 left-0 w-full h-80 bg-opacity-50 z-50 flex justify-center items-start pt-8 ">
           <div className="">
             <Modal setShowLoginModal={setShowLoginModal} />
+          </div>
+        </div>
+      )}
+
+      {showBuyNowUseremailModal && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg w-full max-w-md sm:max-w-sm md:max-w-md shadow-lg">
+            <div className="flex justify-between">
+              <h3 className="text-lg font-semibold mb-4">
+                Enter Your Email To Continue
+              </h3>
+              <button
+                className="text-gray-600 py-2 px-4 rounded-lg font-bold"
+                onClick={handleEmailCancel}
+              >
+                X
+              </button>
+            </div>
+
+            <input
+              type="email"
+              className="border border-gray-300 p-2 w-full mb-4"
+              placeholder="Enter your email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
+            {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
+            <div className="w-full">
+              <button
+                className="bg-green-500 text-white py-2 px-4 rounded-lg cursor-pointer w-full mt-10"
+                onClick={handleEmailSubmit}
+              >
+                Continue
+              </button>
+            </div>
           </div>
         </div>
       )}

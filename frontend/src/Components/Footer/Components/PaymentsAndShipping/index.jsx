@@ -33,9 +33,6 @@ const PaymentsAndShipping = () => {
           <PayPal />
         </div>
         <div className="flex justify-center">
-          <NetBanking />
-        </div>
-        <div className="flex justify-center">
           <MasterCard />
         </div>
         <div className="flex justify-center">
