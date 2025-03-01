@@ -50,6 +50,8 @@ const paymentsController = new PaymentsController(client);
  * Create an order to start the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
  */
+// value: String(cart.price),
+
 const createOrder = async (cart) => {
   console.log("Entering create order");
   const collect = {
@@ -59,7 +61,7 @@ const createOrder = async (cart) => {
         {
           amount: {
             currencyCode: "CAD",
-            value: String(cart.price),
+            value: "1",
           },
         },
       ],
