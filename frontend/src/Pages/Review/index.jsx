@@ -2,8 +2,12 @@ import React from "react";
 import Address from "./Components/Address";
 import Main from "./Components/Main";
 import CheckoutStatus from "../../Components/PaymentStatus";
+import { useSelector } from "react-redux";
 
 const index = () => {
+  const user = useSelector((state) => state.user.user);
+  console.log(user.myCart[0].items.length);
+
   return (
     <>
       <div className="hidden lg:flex gap-4">
@@ -15,9 +19,11 @@ const index = () => {
             <Main />
           </div>
         </div>
-        <div className="w-[30%]">
-          <Address />
-        </div>
+        {user.myCart[0].items.length > 0 && (
+          <div className="w-[30%]">
+            <Address />
+          </div>
+        )}
       </div>
 
       <div className="lg:hidden flex flex-col gap-4 p-4">
@@ -30,9 +36,11 @@ const index = () => {
         </div>
 
         {/* Address content (full width on small and medium screens) */}
-        <div className="w-full">
-          <Address />
-        </div>
+        {user.myCart[0].items.length > 0 && (
+          <div className="w-full">
+            <Address />
+          </div>
+        )}
       </div>
     </>
   );

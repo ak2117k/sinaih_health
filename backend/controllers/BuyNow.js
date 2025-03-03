@@ -39,7 +39,12 @@ const createNewBooking = async (req, res) => {
       shippingAddress,
       bookingAddress,
       payment,
-      products,
+      products: products.map((p) => ({
+        productId: p.productId,
+        name: p.productName,
+        quantity: p.quantity,
+        price: p.price,
+      })),
       shipping_info,
       OrderSummary,
     };
@@ -58,7 +63,7 @@ const createNewBooking = async (req, res) => {
       // If user doesn't exist, create a new user with the provided email and booking
       const newUserBooking = new BuyNowBookings({
         email: email,
-        bookings: bookings.push(newBooking),
+        bookings: [newBooking],
       });
 
       const response = await newUserBooking.save(); // Save the new user with the booking

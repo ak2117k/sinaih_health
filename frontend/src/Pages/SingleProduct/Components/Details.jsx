@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import { FaFacebook, FaHeart, FaRegHeart, FaWhatsapp } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  addproduct,
+  productquantity,
+  useremail,
+} from "../../../Store/BuynowProd";
 import { addUser } from "../../../Store/User";
 import Modal from "../../Products/Components/Modal";
-import PayPalPayment from "../../../Components/PayPalPayment";
-import { useNavigate } from "react-router-dom";
-import { addproduct } from "../../../Store/BuynowProd";
-import { productquantity } from "../../../Store/BuynowProd";
-import { useremail } from "../../../Store/BuynowProd";
 
 const Details = ({ singleProduct }) => {
   const [quantity, setQuantity] = useState(1);

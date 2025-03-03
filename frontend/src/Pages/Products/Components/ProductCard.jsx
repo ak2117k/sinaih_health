@@ -45,7 +45,6 @@ const ProductCard = ({ product }) => {
         setShowLoginModal(true); // Show the modal if unauthorized
       } else {
         const user = response?.data?.updatedUser;
-        console.log(response.data.message);
         dispatch(addUser(user)); // Update user state with the new wishlist
         setnotification(response.data.message);
         setTimeout(() => clearNotification(), 3000);

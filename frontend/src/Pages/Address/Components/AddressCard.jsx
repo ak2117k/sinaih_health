@@ -60,7 +60,7 @@ const AddressCard = ({ AddressData, setShowEditForm, setShowForm }) => {
               <div className="mt-4 flex flex-col md:flex-row gap-2 w-full">
                 <button
                   className="flex items-center justify-center text-[rgb(32,123,180)] font-semibold cursor-pointer border border-gray-200 w-full md:w-[48%] rounded-md h-10"
-                  onClick={handleShowForm}
+                  onClick={() => handleShowForm(AddressData)}
                 >
                   Edit
                 </button>

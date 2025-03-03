@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../../Store/User";
 import { addAddress } from "../../../Store/BuynowProd";
+import { addUser } from "../../../Store/User";
 
 const AddressForm = ({ onCancel, AddressData }) => {
   const user = useSelector((state) => state.user.user);
@@ -123,7 +123,7 @@ const AddressForm = ({ onCancel, AddressData }) => {
       countryCode: formData.countryCode,
       addressId: AddressData?._id,
     };
-    if (!AddressData) {
+    if (!AddressData && !user) {
       dispatch(addAddress(addressData));
       onCancel();
       return;
@@ -155,6 +155,7 @@ const AddressForm = ({ onCancel, AddressData }) => {
           country: "",
           countryCode: "",
         });
+        onCancel();
       } else {
         console.error("Error adding address:", response.data.message);
       }

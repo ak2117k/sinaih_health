@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import PayPalPayment from "../../../Components/PayPalPayment";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { addUser } from "../../../Store/User";
 
 const Main = () => {
   const user = useSelector((state) => state.user.user);
@@ -16,6 +16,10 @@ const Main = () => {
   const [notificationType, setNotificationType] = useState(""); // 'success' or 'error'
   const [showsucessModal, setShowSucessModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  console.log(user);
+  console.log(checkOutDetails);
 
   // Handle cartItems based on whether user exists or not
   const cartItems =
@@ -99,8 +103,7 @@ const Main = () => {
             Total: transaction.amount.value,
           },
         };
-        endpoint =
-          "https://sinaih-health.vercel.app/api/users/handleCreateBooking";
+        endpoint = "https://sinaih-health.vercel.app/api/users/createBooking";
       } else {
         // Case 2: Guest User
         orderDetails = {
@@ -132,8 +135,15 @@ const Main = () => {
 
       // Send API request
       const response = await axios.post(endpoint, orderDetails);
+      console.log(response);
 
-      if (response.data.message.includes("Booking created successfully")) {
+      if (
+        response.data.message.includes("Booking added successfully") ||
+        response.data.message.includes(
+          "User and booking created successfully."
+        ) ||
+        response.data.message.includes("Booking created successfully")
+      ) {
         setShowSucessModal(true);
         setNotification(
           `Congratulations! Your order has been placed successfully. Your order ID is ${
@@ -142,6 +152,8 @@ const Main = () => {
           }. Contact +14378753944 for queries.`
         );
         setNotificationType("success");
+        const user = response?.data?.updatedUser;
+        if (user) dispatch(addUser(user));
       } else {
         setNotification("Error placing order. Please try again.");
         setNotificationType("error");
@@ -211,7 +223,7 @@ const Main = () => {
   return (
     <div className="p-4 max-w-3xl mx-auto">
       {notificationType === "success" && showsucessModal && (
-        <div className="fixed top-0 left-0 w-full bg-green-100 text-white p-4 shadow-md z-50 flex flex-col sm:flex-row justify-between items-center sm:items-center sm:w-auto sm:mx-auto sm:px-6 sm:py-3">
+        <div className="fixed top-60 left-0 w-full h-20 bg-green-100 text-white p-4 shadow-md z-50 flex flex-col sm:flex-row justify-between items-center sm:items-center sm:w-auto sm:mx-auto sm:px-6 sm:py-3">
           <div className="flex-1 text-center sm:text-left">
             <p className="font-semibold text-sm text-green-600 sm:text-base">
               {notification}
@@ -224,71 +236,64 @@ const Main = () => {
           </Link>
         </div>
       )}
-      <h1 className="font-bold text-[16px] text-center sm:text-left">
-        Review Your Order
-      </h1>
+      {!showsucessModal && (
+        <>
+          <h1 className="font-bold text-[16px] text-center sm:text-left">
+            Review Your Order
+          </h1>
 
-      <div className="border p-4 rounded-lg shadow-lg">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b">
-                <th className="pb-2">Product Details</th>
-                <th className="pb-2">Quantity</th>
-                <th className="pb-2">Price</th>
-                <th className="pb-2">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems.map((item) => (
-                <tr key={item?.productId?._id} className="border-t">
-                  <td className="py-2 flex items-center sm:flex-row flex-col">
-                    <img
-                      src={item?.productId.images[0]}
-                      alt={item?.productId.name}
-                      width={50}
-                      height={50}
-                      className="mr-2 mb-2 sm:mb-0"
-                    />
-                    <span className="text-sm sm:text-base">
-                      {item.productId.name}
-                    </span>
-                  </td>
-                  <td className="py-2">{item?.quantity}</td>
-                  <td className="py-2">CA${item?.productId.oprice}</td>
-                  <td className="py-2">
-                    CA${item?.productId?.oprice * item?.quantity}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+          <div className="border p-4 rounded-lg shadow-lg">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="border-b">
+                    <th className="pb-2">Product Details</th>
+                    <th className="pb-2">Quantity</th>
+                    <th className="pb-2">Price</th>
+                    <th className="pb-2">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems.map((item) => (
+                    <tr key={item?.productId?._id} className="border-t">
+                      <td className="py-2 flex items-center sm:flex-row flex-col">
+                        <img
+                          src={item?.productId.images[0]}
+                          alt={item?.productId.name}
+                          width={50}
+                          height={50}
+                          className="mr-2 mb-2 sm:mb-0"
+                        />
+                        <span className="text-sm sm:text-base">
+                          {item.productId.name}
+                        </span>
+                      </td>
+                      <td className="py-2">{item?.quantity}</td>
+                      <td className="py-2">CA${item?.productId.oprice}</td>
+                      <td className="py-2">
+                        CA${item?.productId?.oprice * item?.quantity}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-      {/* Order Summary */}
-      <div className="mt-4 text-right">
-        <p className="font-medium">Sub Total: CA${subTotal}</p>
-        <p className="font-medium">Shipping: CA${shipping}</p>
-        <h3 className="text-xl font-bold mt-2">Total: CA${total}</h3>
-      </div>
+          {/* Order Summary */}
+          <div className="mt-4 text-right">
+            <p className="font-medium">Sub Total: CA${subTotal}</p>
+            <p className="font-medium">Shipping: CA${shipping}</p>
+            <h3 className="text-xl font-bold mt-2">Total: CA${total}</h3>
+          </div>
 
-      <div className="mt-4">
-        <PayPalPayment
-          orderDetails={orderDetails}
-          onTransactionComplete={handleTransactionComplete}
-        />
-      </div>
-
-      {/* Notification */}
-      {notification && (
-        <div
-          className={`mt-4 p-4 rounded-lg text-white text-center ${
-            notificationType === "success" ? "bg-green-500" : "bg-red-500"
-          } absolute top-2`}
-        >
-          {notification}
-        </div>
+          <div className="mt-4">
+            <PayPalPayment
+              orderDetails={orderDetails}
+              onTransactionComplete={handleTransactionComplete}
+            />
+          </div>
+        </>
       )}
     </div>
   );

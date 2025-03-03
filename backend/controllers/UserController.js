@@ -500,6 +500,16 @@ const handleCreateBooking = async (req, res) => {
       userId,
     } = req.body;
 
+    console.log(
+      shippingAddress,
+      bookingAddress,
+      products,
+      payment_info,
+      shipping_info,
+      OrderSummary,
+      userId
+    );
+
     // Validate required fields
     if (
       !shippingAddress ||

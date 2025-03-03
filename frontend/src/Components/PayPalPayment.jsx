@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import React, { useState } from "react";
 
 const PayPalPayment = ({ orderDetails, onTransactionComplete }) => {
+  // https://sinaih-health.vercel.app
   const [message, setMessage] = useState("");
   // console.log(orderDetails.products[0].productName, orderDetails.total);
   return (

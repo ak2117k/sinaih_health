@@ -20,6 +20,8 @@ const {
   PaymentsController,
 } = paypal;
 
+// app.use(cors({ origin: "https://www.sinai-health.com", credentials: true }));
+
 const app = express();
 app.use(cors({ origin: "https://www.sinai-health.com", credentials: true }));
 app.use(express.json());
