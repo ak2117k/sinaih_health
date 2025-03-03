@@ -110,7 +110,7 @@ const Main = () => {
           <div className="cursor-pointer w-8 flex items-center justify-center relative">
             <Link to="/cart">
               <FiShoppingCart className="w-8 h-8" />
-              {user.myCart[0].items.length > 0 && (
+              {user?.myCart[0]?.items?.length > 0 && (
                 <span className="absolute top-[-13px] right-[-4px] bg-yellow-500 text-white text-xs font-semibold rounded-full px-2 py-1">
                   {user?.myCart[0]?.items?.length}
                 </span>

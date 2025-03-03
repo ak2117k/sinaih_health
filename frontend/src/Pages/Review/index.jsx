@@ -36,7 +36,7 @@ const index = () => {
         </div>
 
         {/* Address content (full width on small and medium screens) */}
-        {user.myCart[0].items.length > 0 && (
+        {user?.myCart[0]?.items?.length > 0 && (
           <div className="w-full">
             <Address />
           </div>
