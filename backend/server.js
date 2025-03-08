@@ -43,7 +43,7 @@ const client = new Client({
   },
 });
 
-console.log(client);
+// console.log(client);
 
 const ordersController = new OrdersController(client);
 const paymentsController = new PaymentsController(client);
@@ -160,12 +160,15 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
 const userRoutes = require("./api/UserRoutes");
 const productRoutes = require("./api/ProductRoute");
 const BuyNowRoutes = require("./api/BuyNowBookingRoute");
+const adminRoutes = require("./api/AdminRoute");
 
 app.use("/api/users", userRoutes);
 
 app.use("/api/product", productRoutes);
 
 app.use("/api/buynow", BuyNowRoutes);
+
+app.use("/api/admin", adminRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend", "dist")));

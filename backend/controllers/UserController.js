@@ -54,6 +54,25 @@ const createUser = async (req, res) => {
   }
 };
 
+const getUserDetails = async (userId) => {
+  try {
+    const user = User.findOne({ _id: userId })
+      .populate("wishlistedItems")
+      .populate({
+        path: "myCart",
+        populate: {
+          path: "items.productId",
+          model: "Product",
+        },
+      });
+
+    return user;
+  } catch (error) {
+    console.log("Error fetching user details");
+    throw new Error("Unable to fetch user details");
+  }
+};
+
 const handleUserLogin = async (req, res) => {
   const { email, password } = req.body;
   console.log("email", email, "password", password);
@@ -79,7 +98,7 @@ const handleUserLogin = async (req, res) => {
   if (!passwordMatch) {
     return res.status(404).json({ message: "Invalid Username or password" });
   }
-  const token = setUser(user);
+  const token = setUser(user, false);
   console.log(user);
   return res
     .status(201)
@@ -91,25 +110,6 @@ const handleUserLogin = async (req, res) => {
   //   maxAge: 3600000, // 1 hour expiration
   // });
   // return res.redirect("/log-in");
-};
-
-const getUserDetails = async (userId) => {
-  try {
-    const user = User.findOne({ _id: userId })
-      .populate("wishlistedItems")
-      .populate({
-        path: "myCart",
-        populate: {
-          path: "items.productId",
-          model: "Product",
-        },
-      });
-
-    return user;
-  } catch (error) {
-    console.log("Error fetching user details");
-    throw new Error("Unable to fetch user details");
-  }
 };
 
 const handleWishlist = async (req, res) => {

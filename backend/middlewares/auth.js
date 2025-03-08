@@ -48,9 +48,29 @@ const checkAuth = (req, res, next) => {
   next();
 };
 
+const checkForAdminAuthentication = async (req, res, next) => {
+  const authorizationHeaderValue = req.headers["authorization"];
+  req.admin = null;
+  if (
+    !authorizationHeaderValue ||
+    !authorizationHeaderValue.startsWith("Bearer")
+  ) {
+    return res.status(401).json({ message: "Admin Authentication Required" });
+  }
+  const token = authorizationHeaderValue.split("Bearer ")[1];
+  const user = getUser(token);
+
+  if (!user || !user.isAdmin) {
+    return res.status(403).json({ message: "Unauthorized Admin Access" });
+  }
+  req.admin = user;
+  next();
+};
+
 module.exports = {
   restrictToLoginnedUserOnly,
   checkAuth,
   checkForAuthentication,
   restrictTo,
+  checkForAdminAuthentication,
 };

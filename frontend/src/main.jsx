@@ -16,6 +16,9 @@ import Payment from "./Pages/PaymentOptions/index.jsx";
 import Review from "./Pages/Review/index.jsx";
 import AboutUs from "./Pages/AboutUs/index.jsx";
 import SingleProduct from "./Pages/SingleProduct/index.jsx";
+import AdminDDashBoard from "./Pages/Admin/index.jsx";
+import AdminSignIn from "./Pages/AdminSign-In/index.jsx";
+import AdminSignup from "./Pages/AdminSign-up/index.jsx";
 import { PersistGate } from "redux-persist/integration/react"; // PersistGate for loading state
 import { store, persistor } from "./Store/Store"; // Import the store and persistor
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -56,6 +59,9 @@ const router = createBrowserRouter(
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/products/:productName" element={<SingleProduct />} />
       <Route path="/medicines/:brand" element={<Product />} />
+      <Route path="/admin/dasboard" element={<AdminDDashBoard />} />
+      <Route path="/admin/sign-in" element={<AdminSignIn />} />
+      <Route path="/admin/sign-up" element={<AdminSignup />} />
     </Route>
   )
 );

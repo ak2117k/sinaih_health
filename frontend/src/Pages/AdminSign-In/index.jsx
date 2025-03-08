@@ -20,17 +20,13 @@ const index = () => {
         <div className="text-center mt-6">
           <p className="text-gray-600">
             Don’t have an account?{" "}
-            <Link to="/sign-up" className="text-green-700 hover:underline">
+            <Link
+              to="/admin/sign-up"
+              className="text-green-700 hover:underline"
+            >
               Sign Up here
             </Link>
           </p>
-          <div className="flex justify-center mt-10">
-            <Link to="/admin/sign-in">
-              <button className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-700 transition-all duration-300 focus:outline-none">
-                Login as Admin
-              </button>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

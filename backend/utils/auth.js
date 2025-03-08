@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
 const secretKey = "Sinanihealth@123!0987*%^$$$$";
-function setUser(user) {
+function setUser(user, isAdmin = false) {
   return jwt.sign(
     {
       _id: user._id,
-      email: user.profile.email,
+      email: isAdmin ? user.profile.email : user.username,
+      isAdmin,
     },
     secretKey
   );
