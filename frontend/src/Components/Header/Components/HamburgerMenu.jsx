@@ -102,8 +102,8 @@ const HamburgerMenu = () => {
         {/* Main Menu Items */}
         {[
           { name: "Home", path: "/" },
-          { name: "Men", path: "/men" },
-          { name: "Women", path: "/women" },
+          { name: "Men", path: "/medicines" },
+          { name: "Women", path: "/medicines" },
           { name: "Medicines", path: "/medicines" },
           {
             name: "Products",
