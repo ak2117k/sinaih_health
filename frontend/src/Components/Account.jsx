@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CgProfile } from "react-icons/cg";
+import { CiLocationOn, CiLogout } from "react-icons/ci";
 import { FaBox } from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
-import { CiLocationOn } from "react-icons/ci";
-import { CgProfile } from "react-icons/cg";
-import { CiLogout } from "react-icons/ci";
 import { useLocation } from "react-router-dom";
 
 const Account = () => {
@@ -167,5 +166,7 @@ const Account = () => {
     </div>
   );
 };
+
+//hello
 
 export default Account;
