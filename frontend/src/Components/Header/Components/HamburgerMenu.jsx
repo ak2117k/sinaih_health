@@ -107,14 +107,14 @@ const HamburgerMenu = () => {
             name: "Products",
             items: brands, // List of brand items
           },
-          { name: "Testimonials", path: "/testimonials" },
-          { name: "About Us", path: "/aboutUs" },
+          { name: "Testimonials", path: "/about-us" },
+          { name: "About Us", path: "/about-us" },
           {
             name: "Account",
             items: ["myaccount", "orders", "wishlist", "addresses"],
           },
-          { name: "Blogs", path: "/blogs" },
-          { name: "Contact Us", path: "/contactUs" },
+          { name: "Blogs", path: "/about-us" },
+          { name: "Contact Us", path: "/about-us" },
         ].map((item) => (
           <li
             key={item.name}
