@@ -1,5 +1,3 @@
-import React from "react";
-
 const ContactUs = () => {
   return (
     <div>
@@ -7,7 +5,7 @@ const ContactUs = () => {
         <h2 className="font-semibold text-gray-600">Contact US</h2>
       </div>
       <div className="mt-4">
-        <span className="font-semibold">WhatsApp: +14378753944 </span>
+        <span className="font-semibold">WhatsApp: +14375452006 </span>
       </div>
       <div className="mt-2">
         {" "}
