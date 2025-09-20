@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
+import axiosInstance from "../../../axios";
 
 const User = () => {
   const [showUsersToogle, setShowUsersToogle] = useState(false);
@@ -7,9 +7,7 @@ const User = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(
-        "https://sinaih-health.vercel.app/api/admin/getUsers"
-      );
+      const response = await axiosInstance.get("/admin/getUsers");
       setUsers(response.data?.result);
     } catch (error) {
       console.log(error);
@@ -27,8 +25,8 @@ const User = () => {
 
   const handleStatusChange = async (userId, orderId, newStatus) => {
     try {
-      const response = await axios.patch(
-        "https://sinaih-health.vercel.app/api/admin/updateuserOrderStatus",
+      const response = await axiosInstance.patch(
+        "/admin/updateuserOrderStatus",
         {
           userId: userId,
           orderId: orderId,

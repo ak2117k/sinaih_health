@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import axiosInstance from "../../../axios";
 
 const ReviewForm = ({ setShowReviewForm, productId }) => {
   const [rating, setRating] = useState(0);
@@ -16,23 +16,19 @@ const ReviewForm = ({ setShowReviewForm, productId }) => {
     e.preventDefault();
     console.log(rating, name, email, review);
     try {
-      const result = await axios.post(
-        "https://sinaih-health.vercel.app/api/product/addReview",
-        {
-          rating: rating,
-          name: name,
-          email: email,
-          comments: review,
-          productId: productId,
-        }
-      );
+      const result = await axiosInstance.post("/product/addReview", {
+        rating: rating,
+        name: name,
+        email: email,
+        comments: review,
+        productId: productId,
+      });
       if (result.status === 200) {
         setRating(0);
         setReview("");
         setName("");
         setEmail("");
         setShowReviewForm(false);
-        console.log("Comment added successfully");
       }
     } catch (error) {
       console.log(error);

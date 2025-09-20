@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../../../axios";
 
 const SignInForm = () => {
   const [formData, setFormData] = useState({
@@ -33,8 +33,8 @@ const SignInForm = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        "https://sinaih-health.vercel.app/api/admin/log-in",
+      const response = await axiosInstance.post(
+        "/admin/log-in",
         {
           username: formData.username,
           password: formData.password,

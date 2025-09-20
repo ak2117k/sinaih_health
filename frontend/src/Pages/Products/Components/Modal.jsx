@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../Store/User";
+import axiosInstance from "../../../axios";
 
 const Modal = ({ setShowLoginModal }) => {
   const [email, setEmail] = useState("");
@@ -16,8 +16,8 @@ const Modal = ({ setShowLoginModal }) => {
       return;
     }
     try {
-      const response = await axios.post(
-        "https://sinaih-health.vercel.app/api/users/log-in",
+      const response = await axiosInstance.post(
+        "/users/log-in",
         {
           email,
           password,

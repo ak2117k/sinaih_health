@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+import axiosInstance from "../axios";
 import { addBrands } from "../Store/Brands";
 import CallButton from "./CallButton";
 import Footer from "./Footer/index";
@@ -13,10 +13,7 @@ const Layout = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchProducts = async () => {
-      const products = await axios.get(
-        "https://sinaih-health.vercel.app/api/product/getProducts",
-        {}
-      );
+      const products = await axiosInstance.get("/product/getProducts", {});
       if (products.status === 200) {
         const brands = products?.data.response?.map((item) => item.brand);
         const uniqueBrands = [...new Set(brands)];

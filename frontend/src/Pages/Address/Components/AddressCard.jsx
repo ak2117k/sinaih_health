@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
+import axiosInstance from "../../../axios";
 import { addUser } from "../../../Store/User";
 import AddressForm from "./AddressForm";
 
@@ -19,8 +19,8 @@ const AddressCard = ({ AddressData, setShowEditForm, setShowForm }) => {
   const handleDeleteAddress = async (addressId) => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.delete(
-        `https://sinaih-health.vercel.app/api/users/deleteAddress?addressId=${addressId}&userId=${user?._id}`,
+      const response = await axiosInstance.delete(
+        `/users/deleteAddress?addressId=${addressId}&userId=${user?._id}`,
         {},
         {
           headers: {

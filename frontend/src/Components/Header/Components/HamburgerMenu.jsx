@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi"; // Import icons
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { clearUser } from "../../../Store/User";
 
 const HamburgerMenu = () => {
@@ -180,3 +178,5 @@ const HamburgerMenu = () => {
 };
 
 export default HamburgerMenu;
+
+//

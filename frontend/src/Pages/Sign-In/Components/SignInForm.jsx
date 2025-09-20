@@ -1,9 +1,9 @@
 // import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { addUser } from "../../../Store/User";
+import axiosInstance from "../../../axios";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -37,8 +37,8 @@ const SignInForm = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        "https://sinaih-health.vercel.app/api/users/log-in",
+      const response = await axiosInstance.post(
+        "/users/log-in",
         {
           email: formData.email,
           password: formData.password,
@@ -47,7 +47,6 @@ const SignInForm = () => {
           withCredentials: true, // Ensure this is included to send cookies
         }
       );
-      console.log(response);
       if (response.status === 201) {
         const {
           profile,
@@ -71,7 +70,6 @@ const SignInForm = () => {
         );
         localStorage.setItem("authToken", response?.data?.token);
 
-        console.log("Successfully logged in");
         navigate("/");
       }
     } catch (error) {

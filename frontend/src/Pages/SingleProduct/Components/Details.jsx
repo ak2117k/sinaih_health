@@ -1,9 +1,9 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaFacebook, FaHeart, FaRegHeart, FaWhatsapp } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../../../axios";
 import {
   addproduct,
   productquantity,
@@ -48,8 +48,8 @@ const Details = ({ singleProduct }) => {
   const handleWishlistToggle = async (productId) => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.put(
-        `https://sinaih-health.vercel.app/api/users/wishlist?productId=${productId}&userId=${user?._id}`,
+      const response = await axiosInstance.put(
+        `/users/wishlist?productId=${productId}&userId=${user?._id}`,
         {},
         {
           headers: {
@@ -74,8 +74,8 @@ const Details = ({ singleProduct }) => {
   const handleAddToCart = async (productId) => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.put(
-        `https://sinaih-health.vercel.app/api/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantity}`,
+      const response = await axiosInstance.put(
+        `/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantity}`,
         {},
         {
           headers: {

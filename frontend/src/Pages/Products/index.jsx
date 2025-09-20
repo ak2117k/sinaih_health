@@ -1,8 +1,8 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegSadTear } from "react-icons/fa";
 import { MdSearchOff } from "react-icons/md";
 import { useLocation, useParams } from "react-router-dom";
+import axiosInstance from "../../axios";
 import ProductCard from "./Components/ProductCard";
 import ProductsCount from "./Components/ProductsCount";
 import Top from "./Components/Top";
@@ -18,7 +18,6 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location);
     setProducts([]);
     const search = location.search;
     const searchValue = search.split("=")[1];
@@ -27,24 +26,27 @@ const Index = () => {
       setLoader(true);
       let response;
       if (params.brand) {
-        response = `https://sinaih-health.vercel.app/api/product/getProducts?brand=${params.brand}`;
+        response = `/product/getProducts?brand=${params.brand}`;
       } else if (searchValue) {
-        response = `https://sinaih-health.vercel.app/api/product/searchproduct?search=${searchValue}`;
+        response = `/product/searchproduct?search=${searchValue}`;
       } else {
-        response = `https://sinaih-health.vercel.app/api/product/getProducts`;
+        response = `/product/getProducts`;
       }
 
       try {
-        const result = await axios.get(response);
+        const result = await axiosInstance.get(response);
         if (result.status === 200) {
-          setProducts(result.data.response);
-          // Calculate the total number of pages
-          const total = Math.ceil(result.data.response?.length / itemsPerPage);
+          const fetchedProducts = Array.isArray(result.data?.response)
+            ? result.data.response
+            : [];
+
+          setProducts(fetchedProducts);
+
+          const total = Math.ceil(fetchedProducts.length / itemsPerPage);
           setTotalPages(total);
-          setLoader(false);
         }
       } catch (error) {
-        console.log(error);
+        console.log("Failed to fetch products:", error);
       } finally {
         setLoader(false);
       }

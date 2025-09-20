@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../axios";
 import { CountryList } from "./CountryList";
 
 const SignUpForm = () => {
@@ -52,8 +52,8 @@ const SignUpForm = () => {
     }
 
     try {
-      const response = await axios.post(
-        "https://sinaih-health.vercel.app/api/users/sign-up",
+      const response = await axiosInstance.post(
+        "/users/sign-up",
         {
           email: formData.email,
           firstName: formData.firstName,

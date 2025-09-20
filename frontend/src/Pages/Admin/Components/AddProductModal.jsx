@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
+import axiosInstance from "../../../axios";
 
 const AddProductModal = ({ onClose, onProductAdded }) => {
   const [formData, setFormData] = useState({
@@ -27,8 +27,8 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "https://sinaih-health.vercel.app/api/product/addProduct",
+      const response = await axiosInstance.post(
+        "/product/addProduct",
         formData
       );
 

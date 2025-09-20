@@ -1,34 +1,33 @@
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
+import { Provider } from "react-redux";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react"; // PersistGate for loading state
 import App from "./App.jsx";
-import Layout from "./Components/Layout.jsx";
-import HomePage from "./Pages/HomePage/index.jsx";
-import SignUp from "./Pages/SignUp/index.jsx";
-import SignIn from "./Pages/Sign-In/index.jsx";
-import Product from "./Pages/Products/index.jsx";
-import Wishlist from "./Pages/Wishlist/index.jsx";
-import Cart from "./Pages/Cart/index.jsx";
-import Address from "./Pages/Address/index.jsx";
-import Account from "./Pages/MyAccount/index.jsx";
-import Checkout from "./Pages/CheckOut/index.jsx";
-import Payment from "./Pages/PaymentOptions/index.jsx";
-import Review from "./Pages/Review/index.jsx";
+import "./index.css";
 import AboutUs from "./Pages/AboutUs/index.jsx";
-import SingleProduct from "./Pages/SingleProduct/index.jsx";
+import Address from "./Pages/Address/index.jsx";
 import AdminDDashBoard from "./Pages/Admin/index.jsx";
 import AdminSignIn from "./Pages/AdminSign-In/index.jsx";
 import AdminSignup from "./Pages/AdminSign-up/index.jsx";
-import { PersistGate } from "redux-persist/integration/react"; // PersistGate for loading state
-import { store, persistor } from "./Store/Store"; // Import the store and persistor
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  createRoutesFromElements,
-} from "react-router-dom";
-import { Provider } from "react-redux";
+import Cart from "./Pages/Cart/index.jsx";
+import Checkout from "./Pages/CheckOut/index.jsx";
+import HomePage from "./Pages/HomePage/index.jsx";
+import Account from "./Pages/MyAccount/index.jsx";
+import Payment from "./Pages/PaymentOptions/index.jsx";
+import Product from "./Pages/Products/index.jsx";
+import Review from "./Pages/Review/index.jsx";
+import SignIn from "./Pages/Sign-In/index.jsx";
+import SignUp from "./Pages/SignUp/index.jsx";
+import SingleProduct from "./Pages/SingleProduct/index.jsx";
+import Wishlist from "./Pages/Wishlist/index.jsx";
+import { persistor, store } from "./Store/Store"; // Import the store and persistor
 
 const initialOptions = {
   "client-id":

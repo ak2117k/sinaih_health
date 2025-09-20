@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
+import axiosInstance from "../../../axios";
 import AddProductModal from "./AddProductModal";
 
 const Product = () => {
@@ -17,9 +17,7 @@ const Product = () => {
       return;
     }
     try {
-      const result = await axios.get(
-        "https://sinaih-health.vercel.app/api/admin/getproducts"
-      );
+      const result = await axiosInstance.get("/admin/getproducts");
       setProducts(result.data?.response);
       setShowProductToggle(true);
     } catch (error) {
@@ -46,13 +44,10 @@ const Product = () => {
       const { _id, ...updatedData } = formData;
       console.log(_id, updatedData);
 
-      const response = await axios.patch(
-        "https://sinaih-health.vercel.app/api/admin/updateProduct",
-        {
-          productId: _id,
-          updatedData,
-        }
-      );
+      const response = await axiosInstance.patch("/admin/updateProduct", {
+        productId: _id,
+        updatedData,
+      });
 
       if (response.status === 201) {
         alert("Product updated successfully!");
@@ -67,9 +62,7 @@ const Product = () => {
   // Handle Delete Product
   const handleDelete = async (id) => {
     try {
-      await axios.delete(
-        `https://sinaih-health.vercel.app/api/admin/deleteproduct/${id}`
-      );
+      await axiosInstance.delete(`/admin/deleteproduct/${id}`);
       setProducts(products.filter((product) => product._id !== id));
       alert("Product deleted successfully!");
     } catch (error) {

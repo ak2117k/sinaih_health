@@ -1,10 +1,10 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Slider from "react-slick"; // Importing Slick Carousel
 import { addUser } from "../../../Store/User";
+import axiosInstance from "../../../axios";
 
 const SimilarProductCont = ({ similarProducts }) => {
   const user = useSelector((state) => state.user.user);
@@ -33,8 +33,8 @@ const SimilarProductCont = ({ similarProducts }) => {
   const handleWishlistToggle = async (productId) => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.put(
-        `https://sinaih-health.vercel.app/api/users/wishlist?productId=${productId}&userId=${user?._id}`,
+      const response = await axiosInstance.put(
+        `/users/wishlist?productId=${productId}&userId=${user?._id}`,
         {},
         {
           headers: {
@@ -59,8 +59,8 @@ const SimilarProductCont = ({ similarProducts }) => {
   const handleAddToCart = async (productId) => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.put(
-        `https://sinaih-health.vercel.app/api/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantities[productId]}`,
+      const response = await axiosInstance.put(
+        `/users/addToCart?productId=${productId}&userId=${user?._id}&qty=${quantities[productId]}`,
         {},
         {
           headers: {

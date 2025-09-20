@@ -1,9 +1,9 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import PayPalPayment from "../../../Components/PayPalPayment";
 import { addUser } from "../../../Store/User";
+import axiosInstance from "../../../axios";
 
 const Main = () => {
   const user = useSelector((state) => state.user.user);
@@ -64,8 +64,6 @@ const Main = () => {
     shippingAddress: checkOutDetails.selectedAddress,
   };
 
-  console.log(orderDetails);
-
   const handleRedirect = () => {
     setTimeout(() => {
       setNotification(""); // Clear notification
@@ -103,7 +101,7 @@ const Main = () => {
             Total: transaction.amount.value,
           },
         };
-        endpoint = "https://sinaih-health.vercel.app/api/users/createBooking";
+        endpoint = "/users/createBooking";
       } else {
         // Case 2: Guest User
         orderDetails = {
@@ -129,12 +127,11 @@ const Main = () => {
             Total: transaction.amount.value,
           },
         };
-        endpoint =
-          "https://sinaih-health.vercel.app/api/buynow/createBuyNowBooking";
+        endpoint = "/buynow/createBuyNowBooking";
       }
 
       // Send API request
-      const response = await axios.post(endpoint, orderDetails);
+      const response = await axiosInstance.post(endpoint, orderDetails);
       console.log(response);
 
       if (

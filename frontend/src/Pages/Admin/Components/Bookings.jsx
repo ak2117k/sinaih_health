@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
+import axiosInstance from "../../../axios";
 
 const Bookings = () => {
   const [showBookingToggle, setShowBookingToggle] = useState(false);
@@ -7,9 +7,7 @@ const Bookings = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get(
-        "https://sinaih-health.vercel.app/api/admin/getBookings"
-      );
+      const response = await axiosInstance.get("/admin/getBookings");
       setBookings(response.data.result);
     } catch (error) {
       console.log(error);

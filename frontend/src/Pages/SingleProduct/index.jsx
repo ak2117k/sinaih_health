@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axiosInstance from "../../axios";
 import CustomerReviews from "./Components/CustomerReviews";
 import Details from "./Components/Details";
 import ImageCard from "./Components/ImageCard";
@@ -14,13 +14,11 @@ const index = () => {
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
-    console.log("params", params.productName);
-
     const fetchSingleProduct = async () => {
       try {
         setLoader(true);
-        const result = await axios.get(
-          `https://sinaih-health.vercel.app/api/product/${params.productName
+        const result = await axiosInstance.get(
+          `/product/${params.productName
             .split("_")
             .map((w) => w.trim())
             .join(" ")

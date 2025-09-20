@@ -1,7 +1,6 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axiosInstance from "../../../axios";
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -26,14 +25,11 @@ const SignUpForm = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        "https://sinaih-health.vercel.app/api/admin/sign-up",
-        {
-          username: formData.username,
-          password: formData.password,
-          adminCode: formData.adminCode,
-        }
-      );
+      const response = await axiosInstance.post("/admin/sign-up", {
+        username: formData.username,
+        password: formData.password,
+        adminCode: formData.adminCode,
+      });
       console.log(response);
       if (response.status === 201) {
         setNotification("Admin created successfully!");
