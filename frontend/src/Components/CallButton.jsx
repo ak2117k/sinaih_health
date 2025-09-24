@@ -1,7 +1,7 @@
 import { FaPhone } from "react-icons/fa6";
 
 const CallButton = () => {
-  const phoneNumber = "+14375452006"; // Replace with your phone number
+  const phoneNumber = "+14375755323"; // Replace with your phone number
 
   return (
     <a href={`tel:${phoneNumber}`}>

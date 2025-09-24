@@ -2,7 +2,7 @@ import { FaWhatsapp } from "react-icons/fa"; // Using the WhatsApp icon from rea
 
 const WhatsAppButton = () => {
   // Replace with the contact's phone number (including country code, no '+' sign)
-  const phoneNumber = "+14375452006"; // Example phone number
+  const phoneNumber = "+14375755323"; // Example phone number
   const message = "Hello, I need assistance."; // Custom message to send
 
   // Generate the WhatsApp URL to open the chat
